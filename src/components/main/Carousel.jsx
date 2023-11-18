@@ -34,20 +34,19 @@ export default function Carousel() {
             }   
     return (
         <div className='border-b-1 border-line_color'>
-            <article className=' m-24 h-96 relative'>
+            <article className=' h-96 relative'>
                 <Slider {...settings} ref={slickRef} >
                     {data.map((item) => (
-                        <div className='h-96 relative'>
-                            <img src={item.url} className=" h-96 absolute
-                            right-1/2 translate-x-1/2 " />
+                        <div className='relative h-96'>
+                            <img src={item.url} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-96'/>
                         </div>
                     ))}
                 </Slider>
                 <div>
-                    <div onClick={previous} className='text-4xl absolute top-1/2 left-16'>
+                    <div onClick={previous} className='text-3xl absolute top-1/2 left-48 hover:cursor-pointer'>
                         <SlArrowLeft />
                     </div>
-                    <div onClick={next} className='text-4xl absolute top-1/2 right-16'>
+                    <div onClick={next} className='text-3xl absolute top-1/2 right-48 hover:cursor-pointer'>
                         <SlArrowRight />
                     </div>
                 </div>

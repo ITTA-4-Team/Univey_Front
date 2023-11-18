@@ -12,14 +12,23 @@ module.exports = {
         line_color:'#C2C6CE',
         box_color_1:'#4A4AB4',
         box_color_2:'#2E64B5',
+        sub_text_color_4: "#F27F0C",
+        holiday: "#17A1FA",
         
       },
       height:{
         xxl: '34rem'
       },
+      width:{
+        line: '71%'
+      },
       border:{
         xs : '5px'
-      },      
+      },     
+      margin:{
+        left : '14%',
+        leftsm : '6%'
+      },
       borderWidth: {
         '1': '1px',
       },

@@ -1,33 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
-import './index.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import App from './App';
-import Main from './pages/Main';
-import Board from './pages/Board';
-import Create from './pages/Create';
-import My from './pages/My';
-import Trend from './pages/Trend';
-import Search from './pages/Search';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App";
+import Main from "./pages/Main";
+import Board from "./pages/Board";
+import Create from "./pages/Create";
+import CreateDetail from "./pages/CreateDetail";
+import My from "./pages/My";
+import Trend from "./pages/Trend";
+import Search from "./pages/Search";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     children: [
-      { index: true, element: <Main/> },
-      { path: 'main', element: <Main /> },
-      { path: 'main/board', element: <Board /> },
-      { path: 'main/create', element: <Create /> },
-      { path: 'main/create/detail', element: <Create /> },
-      { path: 'main/my', element: <My/> },
-      { path: 'main/trend', element: <Trend/> },
-      { path: 'main/search/:value', element: <Search/> },
+      { index: true, element: <Main /> },
+      { path: "main", element: <Main /> },
+      { path: "main/board", element: <Board /> },
+      { path: "main/create", element: <Create /> },
+      { path: "main/create/detail", element: <CreateDetail /> },
+      { path: "main/my", element: <My /> },
+      { path: "main/trend", element: <Trend /> },
+      { path: "main/search/:value", element: <Search /> },
     ],
   },
 ]);
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />

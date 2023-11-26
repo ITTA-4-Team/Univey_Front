@@ -34,11 +34,11 @@ export default function Carousel() {
             }   
     return (
         <div className='border-b-1 border-line_color'>
-            <article className=' h-96 relative'>
+            <article className=' h-carousel relative'>
                 <Slider {...settings} ref={slickRef} >
                     {data.map((item) => (
-                        <div className='relative h-96'>
-                            <img src={item.url} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-96'/>
+                        <div className='relative h-carousel'>
+                            <img key={item.id} src={item.url} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full'/>
                         </div>
                     ))}
                 </Slider>

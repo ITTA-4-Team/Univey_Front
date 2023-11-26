@@ -9,13 +9,13 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <>
+    <div className='h-screen'>
       <Header/>
       <QueryClientProvider client={queryClient}>
           <Outlet />
       </QueryClientProvider>
       <Footer/>
-    </>
+    </div>
   );
 }
 

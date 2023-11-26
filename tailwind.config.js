@@ -17,7 +17,8 @@ module.exports = {
         
       },
       height:{
-        xxl: '34rem'
+        xxl: '34rem',
+        carousel: '36rem'
       },
       width:{
         line: '71%'

@@ -5,7 +5,7 @@ import HandleSearch from './HandleSearch';
 import Logo from './Logo';
 export default function Header() {
   return (
-    <nav className=' relative h-24 px-36 border-b-1 border-line_color'>
+    <nav className=' relative h-1/7  px-36 border-b-1 border-line_color'>
       <div className='text-sm absolute right-80 text-sub_text_color bottom-120 mt-3'>
         <span>로그인</span>
         <span className='m-3'> | </span>
@@ -17,9 +17,9 @@ export default function Header() {
             <Logo/>
           </Link>
         <ul className=' text-lg flex font-semibold text-text_color justify-around w-72 ml-16 mt-2'>
-          <Link to='/main/create' className='hover:text-highligth cursor-pointer'>설문생성</Link>
-          <Link to='/main/board' className='hover:text-highligth cursor-pointer'>설문보기</Link>
-          <Link to='/main/trend'className='hover:text-highligth cursor-pointer'>트렌드</Link>
+          <Link to='/main/create' className='click_highlight'>설문생성</Link>
+          <Link to='/main/board' className='click_highlight'>설문보기</Link>
+          <Link to='/main/trend'className='click_highlight'>트렌드</Link>
         </ul>
         </div>
         <div className='ml-36 flex w-1/3'>

@@ -1,8 +1,7 @@
 import React from 'react'
-import { useEffect } from 'react';
 import { useState } from 'react';
 import { CiSearch } from "react-icons/ci";
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 export default function HandleSearch() {
     const navigate = useNavigate()

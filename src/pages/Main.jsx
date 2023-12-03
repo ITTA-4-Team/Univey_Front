@@ -10,34 +10,16 @@ import { useQuery } from '@tanstack/react-query';
 import { RxDoubleArrowDown } from "react-icons/rx";
 
 export default function Main() {
-  const [data,setData]=useState(null); 
-  const [tren,setTrend]=useState(); 
-
-
+  const [main_data, SetMain_data] = useState();
+  // const {data, isLoading } = useQuery({ queryKey: ['Trend'], queryFn: dataset })
   useEffect(()=>{
-    dataset()
+    dataset();
   },[])
 
-  
   async function dataset(){
-    await fetch('/data/Board.json')
-    .then((res)=>res.json())
-    .then((res)=>setData(res.surveyData))
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
-
-
-  function scrollToTrend (){
-    const targetElement = document.getElementById('Trend');
-
-    if (targetElement) {
-      window.scrollTo({
-        top: targetElement.offsetTop,
-        behavior: 'smooth',
-      });
-    }
+    await axios('/data/Board.json')
+    .then((res)=>res.data.surveyData)
+    .then((res)=>SetMain_data(res))
   }
 
   return (
@@ -74,8 +56,8 @@ export default function Main() {
         </div>
       
         <div className=' w-full flex flex-col items-center h-full'>
-            {data &&
-            data.filter(item => item.trend === true).map((item)=>{
+            {main_data &&
+            main_data.filter(item => item.trend === true).map((item)=>{
               return(
               <div className='w-screen flex flex-col items-center'>
               <MainTrendItem key={item.id} data={item}/>
@@ -83,7 +65,6 @@ export default function Main() {
             )
             })
             }
-            {!data && '없어'}
           <hr className='  w-line border-1 border-main_color '/>
           <Link to='/main/trend' className='w-line relative'>
             <div className=' mt-8 float-right  text-center pt-2 font-semibold text-main_color w-56 h-12 border-1 border-main_color rounded-3xl'>트렌드 전체 보기 &nbsp;&nbsp;	&gt; </div>

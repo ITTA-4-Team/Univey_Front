@@ -3,47 +3,47 @@ import axios from 'axios';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import {useQuery} from '@tanstack/react-query'
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import {useQuery} from '@tanstack/react-query'
 
-export default function Carousel() {
-    const {data, isLoading } = useQuery({ queryKey: ['Carousel'], queryFn: CarouselData })
-    const slickRef = useRef(null);
-    function CarouselData(){
-        return axios('/data/Carousel.json')
-            .then((res) => res.data.items)
-    }
-    
-    console.log(data)
+export default function TrendCarousel() {
+    const slickRef = useRef();
+
+    const {data, isLoading } = useQuery({ queryKey: ['TrendCarousels'], queryFn: CarouselData })
+
+    async function CarouselData(){
+        return await axios('/data/TrendCarousel.json')
+        .then((res)=>res.data.items)
+      }
 
     const previous = useCallback(() => slickRef.current.slickPrev(), []);
     const next = useCallback(() => slickRef.current.slickNext(), []);
 
         const settings = {
           arrows: false,
-          dots: false,
+          dots: true,
           infinite: true,
           speed: 1000,
           slidesToShow: 1,
           slidesToScroll: 1,
           autoplay: true,
-          autoplaySpeed: 2000,
+          autoplaySpeed: 3000,
             }   
     return (
-        <div className='border-b-1 border-line_color'>
-            <article className=' h-carousel relative'>
+        <div className=''>
+            <article className=' h-carousel relative w-screen '>
                 <Slider {...settings} ref={slickRef} >
                     {data && data.map((item) => (
-                        <div className='relative h-carousel'>
-                            <img key={item.id} src={item.url} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full'/>
+                        <div className='relative h-trend_carousel  '>
+                            <img key={item.id} src={item.url} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full rounded-2xl shadow-2xl'/>
                         </div>
                     ))}
                 </Slider>
                 <div>
-                    <div onClick={previous} className='text-3xl absolute top-1/2 left-48 hover:cursor-pointer'>
+                    <div onClick={previous} className='text-3xl absolute top-1/2 left-80 -translate-y-full hover:cursor-pointer'>
                         <SlArrowLeft />
                     </div>
-                    <div onClick={next} className='text-3xl absolute top-1/2 right-48 hover:cursor-pointer'>
+                    <div onClick={next} className='text-3xl absolute top-1/2 right-80 -translate-y-full hover:cursor-pointer'>
                         <SlArrowRight />
                     </div>
                 </div>

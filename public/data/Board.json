@@ -13,6 +13,7 @@
             "point": 100,
             "status": "uncomplete",
             "trend" : true,
+            "hash" : ["대학생","얼마나써?","gpt 믿어?", "#제발 해줘"],
             "question":[
                 {
                     "question_num" : 1,
@@ -40,6 +41,7 @@
             "point": 200,
             "status": "uncomplete",
             "trend" : true,
+            "hash" : ["대학생","얼마나써?","gpt 믿어?", "#제발 해줘"],
             "question":[
                 {
                     "question_num" : 1,
@@ -92,6 +94,7 @@
             "point": 100,
             "status": "uncomplete",
             "trend" : true,
+            "hash" : ["대학생","얼마나써?","gpt 믿어?", "#제발 해줘"],
             "question":[
                 {
                     "question_num" : 1,

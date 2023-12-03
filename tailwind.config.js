@@ -18,7 +18,9 @@ module.exports = {
       },
       height:{
         xxl: '34rem',
-        carousel: '36rem'
+        carousel: '36rem',
+        trend_carousel: '32rem',
+        trend_board:'40rem'
       },
       width:{
         line: '71%'

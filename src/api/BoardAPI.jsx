@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useState } from 'react';
 
 export default function BoardAPI() {
     const [data, setData] = useState();

@@ -4,6 +4,7 @@ import React from "react";
 import Slider from "react-slick";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Footer from './components/Footer';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ function App() {
       <Header/>
       <QueryClientProvider client={queryClient}>
           <Outlet />
+          <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
       <Footer/>
     </div>

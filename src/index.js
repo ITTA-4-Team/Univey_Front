@@ -11,6 +11,9 @@ import My from './pages/My';
 import Trend from './pages/Trend';
 import Search from './pages/Search';
 import Participate from './pages/Participate';
+import Login from './pages/Login';
+import LoginHandle from './pages/LoginHandle';
+import QRcode from './pages/QRcode';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +29,9 @@ const router = createBrowserRouter([
       { path: 'main/trend', element: <Trend/> },
       { path: 'main/search/:value', element: <Search/> },
       { path: 'main/participate', element: <Participate/> },
+      { path: 'main/login', element: <Login/> },
+      { path: 'user/kakao/callback', element: <LoginHandle/>},
+      { path: 'main/create/qr', element: <QRcode/>}
     ],
   },
   {

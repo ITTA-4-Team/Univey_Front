@@ -6,8 +6,8 @@ export default function Board2() {
   const [data,setData]=useState(null);
   const [status,setStatus]=useState(['전체','전체']);
   const [boardData, setboardData] = useState(data);
-  const [category, setCategory] = useState('all');
-  const [postType, setPostType] = useState('전체')
+  const [category, setCategory] = useState('전체');
+  const [postType, setPostType] = useState('all')
   const [orderType, setOrderType] = useState('최신순')
 
 
@@ -19,54 +19,10 @@ export default function Board2() {
     console.log(category)
     console.log(postType)
     console.log(orderType)
+
+    console.log()
   },[category,postType,orderType])
   
-  // useEffect(()=>{
-  //   dataset()
-  // },[])
-
-  // useEffect(()=>{
-  //   if(data){
-  //     if(status[0]=='전체' && status[1]=='전체'){
-  //       console.log(1)
-  //       setboardData(data)
-  //     }
-  //     else if(status[0]=='전체' && status[1]!='전체'){
-  //       console.log('2')
-  //       setboardData(data.filter((item)=>item.category ==status[1]))
-  //     }
-  //     else if(status[0]!='전체' && status[1]=='전체'){
-  //       setboardData(data.filter((item)=>item.status ==status[0]))
-  //     }
-  //     else if(status[0]!='전체' && status[1]!='전체'){
-  //       setboardData(data.filter((item)=>(item.category ==status[1] && item.status ==status[0])))
-  //     }
-  //   }
-  //   console.log(status)
-  // },[status,data])
-  
-  // async function dataset(){
-  //   await fetch('/data/Board.json')
-  //   .then((res)=>res.json())
-  //   .then((res)=>setData(res.surveyData))
-  //   .catch((err)=>{
-  //     console.log(err)
-  //   })
-  // }
-
-  // function handleStatus(state){
-  //   const newstate = [...status]
-  //   newstate[0]=state
-  //   setStatus(newstate);
-  // }
-
-  // function handleItemClick(item){
-  //   const newstate = [...status]
-  //   newstate[1]=item
-  //   setStatus(newstate);
-  // }
-
-
   return (
     <div>
       <nav>
@@ -76,7 +32,7 @@ export default function Board2() {
             <li
               key={index}
               onClick={() => setCategory(item)}
-              className={`click_highlight ${status[1]==item ? 'text-highligth' :''}`}
+              className={`click_highlight ${category===item ? 'text-highligth' :''}`}
             >
               {item}
             </li>
@@ -86,11 +42,11 @@ export default function Board2() {
         <div className='flex justify-between'>
         {/* onclick={()=>} */}
           <ul className='flex space-x-5 ml-left my-7'>
-
-          <button onClick={()=>{setPostType('전체')}} className={`'common-list-item'`}>전체</button>
-          <button onClick={()=>{setPostType('진행 중')}} className={`'common-list-item'`}>진행중</button>
-          <button onClick={()=>{setPostType('완료')}} className={`'common-list-item'`}>완료</button>
-          <button onClick={()=>{setPostType('참여')}} className={`'common-list-item'`}>참여</button>
+          <button onClick={()=>{setPostType('all')}} 
+          className={postType === 'all' ? 'select-list-item' : 'common-list-item'}>전체</button>
+          <button onClick={()=>{setPostType('activeSurvey')}} className={postType === 'activeSurvey' ? 'select-list-item' : 'common-list-item'}>진행중</button>
+          <button onClick={()=>{setPostType('completedSurvey')}} className={postType === 'completedSurvey' ? 'select-list-item' : 'common-list-item'}>완료</button>
+          <button onClick={()=>{setPostType('participated')}} className={postType === 'participated' ? 'select-list-item' : 'common-list-item'}>참여</button>
 
           </ul>
           <select onChange={(e)=>setOrderType(e.target.value)} className='h-10 mr-72 mt-5'>

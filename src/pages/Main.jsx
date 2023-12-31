@@ -22,9 +22,7 @@ export default function Main() {
     .then((res)=>SetMain_data(res))
   }
 
-  function test(){
-    axios('')
-  }
+  console.log(main_data)
 
   return (
     <div >

@@ -14,7 +14,7 @@ export default function MainTrendItem({data}) {
           <div className='text-3xl font-bold mb-4'>{data.topic}</div>
           <div className='font-semibold mb-6'>{data.description}</div>
           <div>
-            <p>{`응답시간 : ${data.question.length}문항 (3분 예상)`}</p>
+            {/* <p>{`응답시간 : ${data.question.length}문항 (3분 예상)`}</p> */}
             <p>대상: { 
              data.age[0]=="all" ?
              '전연령':

@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import customaxios from '../api/Axios';
 import BoardItem from '../components/Board/BoardItem';
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/atoms/userState";
 
 export default function Search() {  
     const [data,setData]=useState(null);
     const {value} = useParams();
+    const [userInfo,setUserInfo] = useRecoilState(userState)
     useEffect(()=>{
       dataset()
     },[])
 
     async function dataset(){
-      await fetch('/data/Board.json')
-      .then((res)=>res.json())
+      await customaxios(`/surveys/search/?keyword=${value}`,
+        { headers: { 
+          'ngrok-skip-browser-warning': '69420',
+          Authorization: `${userInfo.accesstoken}`,
+          'Content-Type': 'application/json'
+        } }
+      )
+      .then((res)=>console.log(res))
       .then((res)=>setData(res.surveyData))
       .catch((err)=>{
         console.log(err)

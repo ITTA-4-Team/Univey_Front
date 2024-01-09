@@ -1,28 +1,53 @@
+import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import customaxios from '../api/Axios';
 import BoardItem from '../components/Board/BoardItem';
-
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/atoms/userState";
 
 export default function Board2() {
+  const [userInfo,setUserInfo] = useRecoilState(userState)
   const [data,setData]=useState(null);
   const [status,setStatus]=useState(['전체','전체']);
   const [boardData, setboardData] = useState(data);
-  const [category, setCategory] = useState('전체');
+  const [category, setCategory] = useState('all');
   const [postType, setPostType] = useState('all')
-  const [orderType, setOrderType] = useState('최신순')
+  const [orderType, setOrderType] = useState('createdAt')
 
 
   useEffect(()=>{
-    fetch(`/surveys/list?category=${category}&postType=${postType}&orderTpye=${orderType}`)
-    .then((res)=>res.data)
+    customaxios.get(`surveys/list?category=${category}&postType=${postType}&orderTpye=${orderType}`,
+    {
+      headers: {
+           Authorization: `${userInfo.accesstoken}`,
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': '69420',
+          'Accept': 'application/json'
+      }
+    }
+    )
+    .then((res)=>res.data.data.content)
     .then((res)=>setData(res))
+    .then((res)=>console.log(res))
 
     console.log(category)
     console.log(postType)
     console.log(orderType)
 
+
     console.log()
   },[category,postType,orderType])
   
+  data ? console.log(data) : console.log('no')
+
+  function handleCategory(item){
+    if(item==='전체'){
+      setCategory('all')
+    }else{
+      setCategory(item)
+    }
+}
+
   return (
     <div>
       <nav>
@@ -31,7 +56,7 @@ export default function Board2() {
           {['전체','IT', '교육', '경제', '사회', '문화'].map((item, index) => (
             <li
               key={index}
-              onClick={() => setCategory(item)}
+              onClick={() => handleCategory(item)}
               className={`click_highlight ${category===item ? 'text-highligth' :''}`}
             >
               {item}
@@ -59,7 +84,7 @@ export default function Board2() {
      
       <main>
       <div className='w-screen flex flex-col items-center'>
-        {(boardData) &&boardData.map((item) => <BoardItem key={item.id} data={item} />)}
+        { data && data.map((item) => <BoardItem key={item.id} data={item} />)}
         <hr className='  w-line border-1 border-main_color'/>
       </div>
 

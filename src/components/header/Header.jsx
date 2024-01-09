@@ -10,9 +10,8 @@ import Logo from './Logo';
 export default function Header() {
   const [userInfo,setUserInfo] = useRecoilState(userState)
   const key = process.env.REACT_APP_REST_API_KEY
-  const url = `https://kauth.kakao.com/oauth/authorize?client_id=a7112c7855122c19ace78f063bcce15a&redirect_uri=http://localhost:3000/users/kakao/callback&response_type=code`
-
-  
+  const url = `https://kauth.kakao.com/oauth/authorize?client_id=${key}&redirect_uri=http://localhost:3000/users/kakao/callback&response_type=code`
+  console.log(userInfo)
 
   function handleLogout(){
     setUserInfo('')

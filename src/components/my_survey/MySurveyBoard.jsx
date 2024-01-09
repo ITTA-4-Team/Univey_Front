@@ -3,8 +3,13 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import robot from '../assets/robot.svg';
 import CloseSurveyModal from './CloseSurveyModal';
+import customaxios from '../../api/Axios'
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/atoms/userState";
 
 export default function MySurveyBoard({ surveys, selectedType }) {
+    const [survey, setSurvey] = useState(surveys);
+    const [userInfo,setUserInfo] = useRecoilState(userState)
     const [showModal, setShowModal] = useState(false);
     const [selectedSurveyId, setSelectedSurveyId] = useState(null);
     const [showWarning, setShowWarning] = useState(false);
@@ -21,10 +26,15 @@ export default function MySurveyBoard({ surveys, selectedType }) {
     };
 
     const handleSurveyClose = () => {
-        axios
-            .get(`/mypage/surveys/${selectedSurveyId}/close`)
+        customaxios.get(`/mypage/surveys/${selectedSurveyId}/close`,
+            {headers:{
+                Authorization: `${userInfo.accesstoken}`,
+            }}
+            )
             .then((response) => {
                 closeModal();
+
+
             })
             .catch((error) => {
                 console.error('Error closing survey:', error);
@@ -33,7 +43,7 @@ export default function MySurveyBoard({ surveys, selectedType }) {
 
     return (
         <div>
-            {surveys.map((data) => (
+            {survey && survey.map((data) => (
                 <div key={data.surveyId} className="overflow-hidden border-t-2 border-main_color w-full">
                     <Link
                         to={data.status === 'IN_PROGRESS' ? null : `/main/result/${data.surveyId}`}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CheckIcon from '../components/icons/CheckIcon';
 import HomeIcon from '../components/icons/HomeIcon';

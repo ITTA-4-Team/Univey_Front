@@ -1,6 +1,7 @@
 import React from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 export default function LineChartModel({data}) {
+  // console.log(data)
   return (
     <div>
         <LineChart width={730} height={250} data={data}
@@ -12,6 +13,8 @@ export default function LineChartModel({data}) {
             <Legend />
             <Line type="monotone" dataKey="응답 수" stroke="#8884d8" />
         </LineChart>
+
+
     </div>
   )
 }

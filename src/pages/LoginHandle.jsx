@@ -1,18 +1,21 @@
-import axios from 'axios';
+
 import React, { useEffect } from 'react'
-import { Navigate, useLocation, useParams } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 import { userState } from "../recoil/atoms/userState";
+import customaxios from '../api/Axios'
+import axios from 'axios';
 
 export default function LoginHandle() {
     const [userInfo,setUserInfo] = useRecoilState(userState)
     const location = useLocation();
+    const navigate = useNavigate();
 
 
         useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const code = queryParams.get('code');
-        axios.get(`https://c77c-222-108-73-38.ngrok-free.app/users/kakao/callback?code=${code}`, 
+        customaxios.get(`/users/kakao/callback?code=${code}`, 
         {
             headers: {
                 'Content-Type': 'application/json',
@@ -24,10 +27,14 @@ export default function LoginHandle() {
             const userName = res.data.data.userName
             const point = res.data.data.point
             const accessToken = res.headers['authorization']
-            console.log(res.headers)
             const info = {name:userName, point:point, accesstoken:accessToken}
             setUserInfo(info)
-            console.log(userName)
+            localStorage.setItem('userInfo', info);
+            console.log(res.status)
+            if(res.status === 200){
+              console.log('성공')
+              navigate('/')
+            }
         })
         .catch((error) => {
             console.error(error);

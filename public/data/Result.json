@@ -1,24 +1,81 @@
 {
-    "resultData":[
+
+    "resultData": {
+        "id": 77,
+        "topic": "인공지능",
+        "description": "인공지능에 관한 설문조사",
+        "question": [
         {
-            "id" : 1,
-            "topic" : "CHAT - GPT 활용 실태 조사",
-            "description": "과연 사람들은 얼마나 CHAT-GPT를 활용하고 있는가",
-            "question":[
-                {
-                    "question_num" : 1,
-                    "question" : "GPT를 사용해보신 경험이 있나요?",
-                    "answer" :{
-                        "1" : "아예 없다",
-                        "2" : "거의 없다",
-                        "3" : "보통 이다",
-                        "4" : "자주 있다",
-                        "5" : "항상 있다"
-                    },
-                    "votes": [10,15,25,12,40]
-                }
+        "question_num": 1,
+        "question_type": "MULTIPLE_CHOICE",
+        "question": "평소 인공지능을 얼마나 사용하시나요?",
+        "answer": [
+        "가끔",
+        "매일",
+        "한번도 사용해본 적 없음"
+        ],
+        "votes": [
+        15,
+        10,
+        20
+        ]
+        },
+        {
+        "question_num": 2,
+        "question_type": "SHORT_ANSWER",
+        "question": "불편했던 점?",
+        "answer": [
+        "부정확함",
+        "없음"
+        ],
+        "votes": null
+        },
+        {
+        "question_num": 3,
+        "question_type": "MULTIPLE_CHOICE",
+        "question": "3번쨰 질문?",
+        "answer": [
+        "가끔",
+        "매일",
+        "한번도 사용해본 적 없음"
+        ],
+        "votes": [
+        10,
+        1,
+        18
+        ]
+        },
+        {
+            "question_num": 4,
+            "question_type": "MULTIPLE_CHOICE",
+            "question": "4번쨰 질문?",
+            "answer": [
+            "가끔",
+            "매일",
+            "한번도 사용해본 적 없음"
+            ],
+            "votes": [
+            18,
+            2,
+            6
             ]
+            },
+            {
+                "question_num": 5,
+                "question_type": "MULTIPLE_CHOICE",
+                "question": "5번쨰 질문?",
+                "answer": [
+                "가끔",
+                "매일",
+                "한번도 사용해본 적 없음"
+                ],
+                "votes": [
+                5,
+                7,
+                9
+                ]
+                }
+        ]
         }
-    ]
 
 }

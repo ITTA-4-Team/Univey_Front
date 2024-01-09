@@ -4,7 +4,14 @@ import { IoSquareSharp } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa";
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/atoms/userState";
+import { useParams,useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import customaxios from '../api/Axios';
+
 export default function QRcode() {
+  const {surveyId} = useParams();
   const [qrCode,setqrCode] = useState({
     size:'256',
     quietZone:'100',
@@ -17,6 +24,8 @@ export default function QRcode() {
   const [style,setStyle] =useState('squares')
   const [logoStyle, setLogoStyle] = useState('squares')
   const [img, setImg] = useState('');
+  const [userInfo,setUserInfo] = useRecoilState(userState)
+  const usenavigate = useNavigate();
   function handleStyle(e){
     e.preventDefault();
     setStyle(e.target.value)
@@ -34,6 +43,28 @@ export default function QRcode() {
       console.log(reader.result)
     }
     reader.readAsDataURL(e.target.files[0]) 
+  }
+
+  function handleCreate(){
+    const question = localStorage.getItem('userQuestions')
+    customaxios.post(
+      `/surveys/submit/${surveyId}`,
+      question,
+      { headers: { 
+        'ngrok-skip-browser-warning': '69420',
+        Authorization: `${userInfo.accesstoken}`,
+        'Content-Type': 'application/json'
+      } }
+      ) 
+      .then((response) => {
+        const point = response.data.data
+        setUserInfo((prev)=>({...prev, point:point})) 
+        usenavigate('/main')
+      })
+      .catch((error) => {
+        console.error('에러 발생:', error);
+      })
+    console.log(question)
   }
 
   function handleChange(e){
@@ -173,7 +204,7 @@ export default function QRcode() {
           </article>
 
           <div className='w-1/2 flex justify-end mb-24'>
-            <button className='border-2 border-highligth text-highligth rounded-2xl w-36 h-12 font-bold '>설문생성</button>
+            <button className='border-2 border-highligth text-highligth rounded-2xl w-36 h-12 font-bold ' onClick={handleCreate}>설문생성</button>
           </div>
         </section>
     </div>

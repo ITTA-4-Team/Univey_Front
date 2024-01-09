@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { RxDoubleArrowDown } from "react-icons/rx";
 import { useRecoilState } from "recoil";
 import { userState } from "../recoil/atoms/userState";
+import customaxios from '../api/Axios';
 
 export default function Main() {
   const [main_data, SetMain_data] = useState();
@@ -18,7 +19,6 @@ export default function Main() {
   console.log(userInfo)
   useEffect(()=>{
     dataset();
-    test()
     // test2()
   },[])
 
@@ -29,7 +29,7 @@ export default function Main() {
   }
 
   async function test2(){
-    axios.post('https://c77c-222-108-73-38.ngrok-free.app/surveys/create',
+    customaxios.post('/surveys/create',
 		{
       "topic": "인공지능",
       "description": "대학생들이 일상 속에서 인공지능을 사용하는 현황 조사",
@@ -44,18 +44,7 @@ export default function Main() {
         }
       )
   }
-  
 
-
-  async function test(){
-    console.log('start')
-    await fetch('https://c77c-222-108-73-38.ngrok-free.app/surveys/list?category=경제&postType=activeSurvey&orderType=point')
-    // .then((res)=>res.json())
-    .then((res)=>console.log(res))
-    .catch((err)=>console.error(err))
-
-    console.log('end')
-  }
 
   return (
     <div >

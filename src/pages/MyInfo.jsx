@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import MyHomeIcon from '../components/icons/MyHomeIcon';
 import ProfileIcon from '../components/icons/ProfileIcon';
 import { GoPencil } from "react-icons/go";
+import customaxios from '../api/Axios';
 
 export default function MyInfo({name, nickName, email, phoneNumber}) {
 
@@ -17,7 +18,7 @@ export default function MyInfo({name, nickName, email, phoneNumber}) {
 
 
     useEffect(() => {
-    axios.get(
+        customaxios.get(
         '/data/myInfo.json',
       // /mypage/info
         { headers: { Authorization: `Bearer ${accessToken}` } }
@@ -37,7 +38,7 @@ export default function MyInfo({name, nickName, email, phoneNumber}) {
 const handleNickNameChange = (value) => {
     setNickNameValue(value);
     
-    axios.get('/data/Nickname.json',     
+    customaxios.get('/data/Nickname.json',     
                 { headers: { Authorization: `Bearer ${accessToken}` } }) //`/mypage/info/${value}/exists`
         .then((response) => {
             const isAvailable = response.data.data;
@@ -57,7 +58,7 @@ const handleSubmit = () => {
         category: category,
     };
 
-    axios.patch('/mypage/info',
+    customaxios.patch('/mypage/info',
                 formData,
                 { headers: { Authorization: `Bearer ${accessToken}` } })
         .then((response) => {

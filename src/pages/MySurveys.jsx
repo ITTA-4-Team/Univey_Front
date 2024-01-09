@@ -4,12 +4,16 @@ import { Link } from 'react-router-dom';
 import MySurveyBoard from '../components/my_survey/MySurveyBoard';
 import MyHomeIcon from '../components/icons/MyHomeIcon';
 import { GoPencil } from "react-icons/go";
+import customaxios from '../api/Axios';
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/atoms/userState";
 
 export default function MySurveys({}) {
-
+    const [userInfo,setUserInfo] = useRecoilState(userState)
     const [selectedType, setSelectedType] = useState('created'); 
     const [surveys, setSurveys] = useState([]);
 
+    
     const handleItemClick = (type) => {
         setSelectedType(type);
     };
@@ -18,13 +22,17 @@ export default function MySurveys({}) {
         const mySurveyData = () => {
             let endpoint;
             if (selectedType === 'created') {
-                endpoint = '/data/MyParticipateSurvey.json';      ///mypage/surveys?type=created
+                endpoint = '/mypage/surveys?type=created';      ///mypage/surveys?type=created
             } else if (selectedType === 'participated') {
-                endpoint = '/data/MyCreatedSurvey.json'; ///mypage/surveys?type=participated
+                endpoint = '/mypage/surveys?type=participated'; ///mypage/surveys?type=participated
             }
         
-            axios
-                .get(endpoint)
+            customaxios.get(endpoint,
+                {
+                    headers:{
+                        Authorization: `${userInfo.accesstoken}`,
+                    }
+                })
                 .then((response) => {
                 console.log(response.data.data); 
                 setSurveys(response.data.data);

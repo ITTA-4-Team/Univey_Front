@@ -36,6 +36,7 @@ module.exports = {
         left: "14%",
         leftsm: "6%",
         leftxl: "21.5%",
+        leftresult: "25%",
       },
       borderWidth: {
         1: "1px",

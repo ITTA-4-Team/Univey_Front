@@ -6,6 +6,9 @@ import MyHomeIcon from '../components/icons/MyHomeIcon';
 import PointIcon from '../components/icons/PointIcon';
 import { GoPencil } from "react-icons/go";
 import { BsLightningChargeFill } from "react-icons/bs";
+import customaxios from '../api/Axios';
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/atoms/userState";
 
 export default function Mypoint() {
 
@@ -13,37 +16,38 @@ export default function Mypoint() {
     const [pointData, setPointData] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
     const [accessToken, setAccessToken] = useState("");
+    const [userInfo,setUserInfo] = useRecoilState(userState)
 
-    useEffect(() => {
-        axios.get(
-            '/data/my.json',
-          // /mypage/points?type=purchase
-            { headers: { Authorization: `Bearer ${accessToken}` } }
-        )
-        .then((response) => {
-            const data = response.data.data;
-            setPoint(data.point);
-        })
-        .catch((error) => {
-            console.error('데이터를 불러오는 동안 에러 발생:', error);
-        });
-    } , []);
+    // useEffect(() => {
+    //     customaxios.get(
+    //         '/data/my.json',
+    //       // /mypage/points?type=purchase
+    //         { headers: { Authorization: `Bearer ${accessToken}` } }
+    //     )
+    //     .then((response) => {
+    //         const data = response.data.data;
+    //         setPoint(data.point);
+    //     })
+    //     .catch((error) => {
+    //         console.error('데이터를 불러오는 동안 에러 발생:', error);
+    //     });
+    // } , []);
 
     useEffect(() => {
         let apiEndpoint = '';
         if (selectedOption === 'gain') {
-            apiEndpoint = '/data/PointAll.json';  
+            apiEndpoint = '/mypage/point?type=acquisition';  
         } else if (selectedOption === 'purchase') {
-            apiEndpoint = '/data/PointAll.json'; 
+            apiEndpoint = '/mypage/point?type=purchase'; 
         } else if (selectedOption === 'usage') {
-            apiEndpoint = '/data/PointUsage.json';
+            apiEndpoint = '/mypage/point?type=usage';
             // /mypage/points?type=usage
         } else {
-            apiEndpoint = '/data/PointAll.json';
+            apiEndpoint = '/mypage/point?type=all';
         }
-
-        axios.get(apiEndpoint,
-                { headers: { Authorization: `Bearer ${accessToken}` } }
+        console.log(apiEndpoint)
+        customaxios.get(apiEndpoint,
+                { headers: { Authorization: `${userInfo.accesstoken}`, } }
             )
         .then((response) => {
             const data = response.data.data;

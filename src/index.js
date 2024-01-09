@@ -20,6 +20,7 @@ import MyInfo from "./pages/MyInfo";
 import MySurveys from "./pages/MySurveys";
 import MyPoint from "./pages/MyPoint";
 import ParticipateComplete from "./pages/ParticipateComplete";
+import ResultDetail from "./pages/ResultDetail";
 
 const router = createBrowserRouter([
   {
@@ -32,19 +33,28 @@ const router = createBrowserRouter([
       { path: "main/my", element: <My /> },
       { path: "main/trend", element: <Trend /> },
       { path: "main/search/:value", element: <Search /> },
-      { path: "user/kakao/callback", element: <LoginHandle /> },
-      { path: "main/create/qr", element: <QRcode /> },
+      { path: "users/kakao/callback", element: <LoginHandle /> },
+      { path: "main/create/qr/:surveyId", element: <QRcode /> },
       { path: "main/result/:surveyId", element: <Result /> },
+      {
+        path: "main/result/:surveyId/edit/:questionNum",
+        element: <ResultDetail />,
+      },
       { path: "main/create", element: <Create /> },
-      { path: "main/create/detail", element: <CreateDetail /> },
-      { path: "main/my", element: <My /> },
+      {
+        path: "main/create/details/:surveyId/:surveyTopic",
+        element: <CreateDetail />,
+      },
       { path: "main/my/info", element: <MyInfo /> },
       { path: "main/my/surveys", element: <MySurveys /> },
       { path: "main/my/point", element: <MyPoint /> },
-      { path: "main/trend", element: <Trend /> },
-      { path: "main/search/:value", element: <Search /> },
-      { path: "main/participate", element: <Participate /> },
-      { path: "main/participate/complete", element: <ParticipateComplete /> },
+      // { path: "main/participate", element: <Participate /> },
+      { path: "main/participate/:surveyId", element: <Participate /> },
+
+      {
+        path: "main/participate/:surveyId/complete",
+        element: <ParticipateComplete />,
+      },
     ],
   },
   {

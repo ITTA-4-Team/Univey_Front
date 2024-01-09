@@ -46,11 +46,9 @@ export default function BoardItem({ data }) {
             <p>{`문항 수 : 3분 예상`}</p>
             <p>
               대상:{" "}
-              {data.age[0] == "all"
+              {data.age.minAge === "0"
                 ? "전연령"
-                : data.age.length === 1
-                ? `${data.age[0]}대`
-                : `${data.age[0]}대~${data.age[data.age.length - 1]}대`}
+                : `${data.age.minAge}대-${data.age.maxAge}대`}
             </p>
             {data.targetRespondents ? (
               <p>

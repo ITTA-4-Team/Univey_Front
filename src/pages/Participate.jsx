@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useBeforeunload } from "react-beforeunload";
+// import { useBeforeunload } from "react-beforeunload";
 import { useNavigate, useParams } from "react-router-dom";
 import ParticipateCard from "../components/participate/ParticipateCard";
 import ExitModal from "../components/participate/ExitModal";

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import QuestionCard from "./QuestionCard";
 import CreateQuestion from "./CreateQuestion";
 import EditQuestion from "./EditQuestion";
@@ -16,6 +17,7 @@ const UserQuestions = ({
   topic,
   description,
 }) => {
+  const { surveyId } = useParams();
   const [creatingQuestion, setCreatingQuestion] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
   const inputRef = useRef(null);
@@ -151,7 +153,7 @@ const UserQuestions = ({
     // 유효성이 모두 true일 경우에만 submit 처리
     if (isValidArray.every((isValid) => isValid)) {
       localStorage.setItem("userQuestions", JSON.stringify({ userQuestions }));
-      navigate("main/create/qr");
+      navigate(`../main/create/qr/${surveyId}`);
     }
   };
 

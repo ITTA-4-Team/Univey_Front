@@ -21,7 +21,7 @@ import MySurveys from "./pages/MySurveys";
 import MyPoint from "./pages/MyPoint";
 import ParticipateComplete from "./pages/ParticipateComplete";
 import ResultDetail from "./pages/ResultDetail";
-
+import CreateComplete from "./pages/CreateComplete";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,10 +45,13 @@ const router = createBrowserRouter([
         path: "main/create/details/:surveyId/:surveyTopic",
         element: <CreateDetail />,
       },
+      {
+        path: "main/create/complete/:surveyId",
+        element: <CreateComplete />,
+      },
       { path: "main/my/info", element: <MyInfo /> },
       { path: "main/my/surveys", element: <MySurveys /> },
       { path: "main/my/point", element: <MyPoint /> },
-      // { path: "main/participate", element: <Participate /> },
       { path: "main/participate/:surveyId", element: <Participate /> },
 
       {

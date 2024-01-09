@@ -31,7 +31,7 @@ const CreateSurvey = () => {
 
   const validateAge = (newMinAge, newMaxAge) => {
     const isValid =
-      (newMinAge === "all" && newMaxAge === "all") ||
+      (newMinAge === "0" && newMaxAge === "0") ||
       (newMinAge !== "" &&
         newMaxAge !== "" &&
         parseInt(newMinAge) <= parseInt(newMaxAge));

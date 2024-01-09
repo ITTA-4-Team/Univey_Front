@@ -84,8 +84,9 @@ export default function Board2() {
      
       <main>
       <div className='w-screen flex flex-col items-center'>
-        { data && data.map((item) => <BoardItem key={item.id} data={item} />)}
         <hr className='  w-line border-1 border-main_color'/>
+        { data && data.map((item) => <BoardItem key={item.id} data={item} />)}
+        <hr className='  w-line border-2 border-main_color'/>
       </div>
 
       </main>

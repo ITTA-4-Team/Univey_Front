@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { QRCode } from 'react-qrcode-logo';
 import { IoSquareSharp } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa";
@@ -9,8 +9,11 @@ import { userState } from "../recoil/atoms/userState";
 import { useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import customaxios from '../api/Axios';
+import html2canvas from 'html2canvas';
+import saveAs from 'file-saver'
 
 export default function QRcode() {
+  const qrRef = useRef();
   const {surveyId} = useParams();
   const [qrCode,setqrCode] = useState({
     size:'256',
@@ -45,25 +48,41 @@ export default function QRcode() {
     reader.readAsDataURL(e.target.files[0]) 
   }
 
-  function handleCreate(){
+  async function handleCreate(){
     const question = localStorage.getItem('userQuestions')
-    customaxios.post(
-      `/surveys/submit/${surveyId}`,
-      question,
-      { headers: { 
-        'ngrok-skip-browser-warning': '69420',
-        Authorization: `${userInfo.accesstoken}`,
-        'Content-Type': 'application/json'
-      } }
-      ) 
-      .then((response) => {
-        const point = response.data.data
-        setUserInfo((prev)=>({...prev, point:point})) 
-        usenavigate('/main')
-      })
-      .catch((error) => {
-        console.error('에러 발생:', error);
-      })
+    // customaxios.post(
+    //   `/surveys/submit/${surveyId}`,
+    //   question,
+    //   { headers: { 
+    //     'ngrok-skip-browser-warning': '69420',
+    //     Authorization: `${userInfo.accesstoken}`,
+    //     'Content-Type': 'application/json'
+    //   } }
+    //   ) 
+    //   .then((response) => {
+    //     const point = response.data.data
+    //     setUserInfo((prev)=>({...prev, point:point})) 
+    //     usenavigate(`/main/create/complete/${surveyId}`)
+    //   })
+    //   .catch((error) => {
+    //     console.error('에러 발생:', error);
+    //   })
+
+      if (!qrRef.current) return;
+
+    try {
+      const div = qrRef.current;
+      const canvas = await html2canvas(div, { scale: 2 });
+      canvas.toBlob((blob) => {
+        if (blob !== null) {
+          saveAs(blob, "Qrcode.png");
+        }
+      });
+    } catch (error) {
+      console.error("Error converting div to image:", error);
+    }
+
+
     console.log(question)
   }
 
@@ -92,7 +111,8 @@ export default function QRcode() {
         <section className='flex flex-col items-center mt-12'>
         <hr className='border-xs border-line_color w-line -mt-10 mb-10'/>
           
-          <div className='w-80 h-80 bg-gray-400 flex justify-center items-center mb-12 overflow-hidden border-1 border-black'>
+          <div className='w-80 h-80 bg-gray-400 flex justify-center items-center mb-12 overflow-hidden border-1 border-black'
+          ref={qrRef}>
               <QRCode 
                   value={"https://picturesofpeoplescanningqrcodes.tumblr.com/"}
                   size={qrCode.size}

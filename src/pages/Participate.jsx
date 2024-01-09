@@ -32,6 +32,8 @@ useEffect(() => {
   }
   })
   .then((res)=>{
+    console.log(res)
+
     const surveyData=res.data.data.surveyData
     const flattenedUserQuestions=res.data.data.surveyData.userQuestions
 

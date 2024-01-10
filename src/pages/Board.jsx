@@ -85,7 +85,7 @@ export default function Board() {
      
       <main>
       <div className='w-screen flex flex-col items-center'>
-        {(boardData) &&boardData.map((item) => <BoardItem key={item.id} data={item} />)}
+        {(boardData) &&boardData.map((item) => <BoardItem key={item.id} data={item}/>)}
         <hr className='  w-line border-1 border-main_color'/>
       </div>
 

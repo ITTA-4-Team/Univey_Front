@@ -1,0 +1,25 @@
+{
+    "status": 200,
+    "message": "~ 조회에 성공했습니다.",
+    "data": [
+    {
+    "surveyId": "1",
+    "topic": "인공지능",
+    "description": "대학생들이 일상 속에서 인공지능을 사용하는 현황 조사",
+    "category": "IT",
+    "createdDay": "23-12-28",
+    "deadline": "25-12-23",
+    "point": 20
+    },
+    {
+    "surveyId": "2",
+    "topic": "이태호",
+    "description": "이태호의 시도는 성공할 것인가",
+    "category": "교육",
+    "createdDay": "23-12-28",
+    "deadline": "24-12-28",
+    "point": 20
+    }
+    ]
+    }
+    

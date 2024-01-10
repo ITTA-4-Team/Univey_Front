@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 
 
@@ -47,7 +47,20 @@ body {
 .bg_main{
   @apply border-main_color bg-main_color text-white
 }
-
-.bg_white{
-  @apply border-main_color bg-white text-main_color
+@layer components {
+  .info-input {
+    @apply w-full py-2 pl-5 rounded-2xl bg-question_card_bg outline-none;
+  }
 }
+
+.ResultSelect{
+  @apply w-36 h-36 border-2 rounded-xl ml-8 flex flex-col justify-center items-center relative text-main_color hover:cursor-pointer hover:bg-black hover:bg-opacity-10
+}
+/* .bg_white{
+  @apply border-main_color bg-white text-main_color
+  overflow-x: hidden;
+  color:#5A4978;
+}
+*/
+
+

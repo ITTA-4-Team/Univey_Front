@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import TrendCarousel from '../components/trend/TrendCarousel'
+import TrendCarousel from '../components/Trend/TrendCarousel'
 import { LiaFireAltSolid } from "react-icons/lia";
-import TrendBoard from '../components/trend/TrendBoard';
+import TrendBoard from '../components/Trend/TrendBoard';
 import {useQuery} from '@tanstack/react-query'
 import axios from 'axios';
+import customaxios from '../api/Axios';
 export default function Trend() {
   const [trend, SetTrend] = useState();
   // const {data, isLoading } = useQuery({ queryKey: ['Trend'], queryFn: dataset })
@@ -12,7 +13,7 @@ export default function Trend() {
   },[])
 
   async function dataset(){
-    await axios('/data/Board.json')
+    await customaxios('/trends')
     .then((res)=>res.data.surveyData)
     .then((res)=>SetTrend(res))
   }

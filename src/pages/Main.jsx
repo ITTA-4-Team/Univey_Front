@@ -8,12 +8,18 @@ import axios from 'axios';
 import MainTrendItem from '../components/main/MainTrendItem';
 import { useQuery } from '@tanstack/react-query';
 import { RxDoubleArrowDown } from "react-icons/rx";
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/atoms/userState";
+import customaxios from '../api/Axios';
 
 export default function Main() {
   const [main_data, SetMain_data] = useState();
+  const [userInfo, setUserInfo] = useRecoilState(userState)
   // const {data, isLoading } = useQuery({ queryKey: ['Trend'], queryFn: dataset })
+  console.log(userInfo)
   useEffect(()=>{
     dataset();
+    // test2()
   },[])
 
   async function dataset(){
@@ -22,7 +28,24 @@ export default function Main() {
     .then((res)=>SetMain_data(res))
   }
 
-  console.log(main_data)
+
+  async function test2(){
+    customaxios.post('/surveys/create',
+		{
+      "topic": "인공지능",
+      "description": "대학생들이 일상 속에서 인공지능을 사용하는 현황 조사",
+      "category": "IT",
+      "deadline": "25-12-23",
+      "gender": "male",
+      "age": "10",
+      "targetRespondents": ""
+      },
+        {
+        	headers: {Authorization: userInfo.accesstoken},
+        }
+      )
+  }
+
 
   return (
     <div >
@@ -60,10 +83,10 @@ export default function Main() {
       
         <div className=' w-full flex flex-col items-center h-full'>
             {main_data &&
-            main_data.filter(item => item.trend === true).map((item)=>{
+            main_data.filter(item => item.trend === true).map((item,index)=>{
               return(
-              <div className='w-screen flex flex-col items-center'>
-              <MainTrendItem key={item.id} data={item}/>
+              <div>
+              <Link to={`/main/participate/${item.id}`} className='w-screen flex flex-col items-center'><MainTrendItem key={index} data={item}/></Link>
             </div>
             )
             })

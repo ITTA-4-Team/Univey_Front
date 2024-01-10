@@ -1,0 +1,32 @@
+{
+    "status": 200,
+    "message": "~ 조회에 성공했습니다.",
+    "data": [
+    {
+    "surveyId": 1,
+    "status": "IN_PROGRESS",
+    "topic": "univey",
+    "description": "gogo",
+    "age": 30,
+    "category": "교육",
+    "currentRespondents": 0,
+    "targetRespondents": 300,
+    "createdDay": "24-01-02",
+    "deadline": "24-01-01",
+    "point": 20
+    },
+    {
+    "surveyId": 2,
+    "status": "COMPLETE",
+    "topic": "test2",
+    "description": "hihihi",
+    "age": 0,
+    "category": "경제",
+    "currentRespondents": 0,
+    "targetRespondents": 100,
+    "createdDay": "24-01-02",
+    "deadline": "24-05-01",
+    "point": null
+    }
+    ]
+    }

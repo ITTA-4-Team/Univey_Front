@@ -1,0 +1,30 @@
+{
+    "status": 200,
+    "message": "~ 조회에 성공했습니다.",
+    "data": [
+    {
+    "topic": "univey",
+    "sub": "설문 생성",
+    "createdDay": "24-01-01",
+    "pointType": "POINT_USAGE",
+    "point": 20,
+    "remainingPoint": 980
+    },
+    {
+    "topic": "univey",
+    "sub": "설문 참여",
+    "createdDay": "23-04-28",
+    "pointType": "POINT_GAIN",
+    "point": 60,
+    "remainingPoint": 890
+    },
+    {
+    "topic": "포인트 충전",
+    "sub": null,
+    "createdDay": "23-01-01",
+    "pointType": "POINT_PURCHASE",
+    "point": 30,
+    "remainingPoint": 950
+    }
+    ]
+    }

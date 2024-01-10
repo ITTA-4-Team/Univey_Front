@@ -8,8 +8,10 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.6.1",
-    "chart.js": "^4.4.1",
+    "axios": "^1.6.2",
+    "date-fns": "^2.30.0",
+    "file-saver": "^2.0.5",
+    "html2canvas": "^1.4.1",
     "http-proxy-middleware": "^2.0.6",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
@@ -20,11 +22,12 @@
     "react-icons": "^4.11.0",
     "react-qrcode-logo": "^2.9.0",
     "react-query": "^3.39.3",
-    "react-router": "^6.18.0",
-    "react-router-dom": "^6.18.0",
+    "react-router-dom": "^6.19.0",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
     "recharts": "^2.10.3",
+    "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
     "slick-carousel": "^1.8.1",
     "sort-by": "^1.2.0",
     "web-vitals": "^2.1.4"
@@ -51,7 +54,8 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
+    ],
+    "proxy": "https://19fd-222-108-73-38.ngrok-free.app"
   },
   "devDependencies": {
     "tailwindcss": "^3.3.5"

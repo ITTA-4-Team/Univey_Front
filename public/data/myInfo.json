@@ -1,0 +1,10 @@
+{
+    "status": 200,
+    "message": "~ 조회에 성공했습니다.",
+    "data": {
+        "name": "이태호",
+        "email": "xogh8755@kakao.com",
+        "nickName": null,
+        "phoneNumber": null
+    }
+    }

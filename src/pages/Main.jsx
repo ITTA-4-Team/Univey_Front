@@ -28,6 +28,7 @@ export default function Main() {
     .then((res)=>SetMain_data(res))
   }
 
+
   async function test2(){
     customaxios.post('/surveys/create',
 		{

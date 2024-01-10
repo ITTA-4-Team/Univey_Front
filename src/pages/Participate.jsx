@@ -24,6 +24,59 @@ const Participate = () => {
   const { surveyId } = useParams();
   const navigate = useNavigate();
 
+//렌더링될 때 accesstoken?
+    
+useEffect(() => {
+
+  customaxios.get(`/surveys/participation/${surveyId}`,
+  {
+    headers: {
+      Authorization: `${userInfo.accesstoken}`,
+      'ngrok-skip-browser-warning': '69420',
+      'Accept': 'application/json'
+  }
+  })
+  .then((res)=>{
+    console.log(res)
+
+    const surveyData=res.data.data.surveyData
+    const flattenedUserQuestions=res.data.data.surveyData.userQuestions
+
+    console.log(surveyData)
+    console.log(flattenedUserQuestions)
+
+    if (flattenedUserQuestions.length > 0) {
+      setTopic(surveyData.topic);
+      setDescription(surveyData.description);
+      // 초기에 모든 질문에 대한 경고를 숨기도록 빈 배열로 초기화
+      setShowWarning(Array(flattenedUserQuestions.length).fill(false));
+      setUserQuestions(flattenedUserQuestions)
+    }
+  })
+
+  // axios.get(
+  //   '/data/ParticipatePost.json'
+  //   //{ headers: { Authorization: `Bearer ${accessToken}` } }
+  //   )
+  //   .then((response) => {
+  //     const surveyData = response.data.data.surveyData;
+  //     const flattenedUserQuestions = surveyData.userQuestions;
+
+  //     setUserQuestions(flattenedUserQuestions);
+
+  //     if (flattenedUserQuestions.length > 0) {
+  //       setTopic(surveyData.topic);
+  //       setDescription(surveyData.description);
+  //       // 초기에 모든 질문에 대한 경고를 숨기도록 빈 배열로 초기화
+  //       setShowWarning(Array(flattenedUserQuestions.length).fill(false));
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error('데이터를 불러오는 동안 에러 발생:', error);
+  //   });
+}, []);
+
+
   /* //모달 사용할 경우
   // 페이지 벗어남
   const handleCancel = () => {

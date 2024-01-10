@@ -10,9 +10,11 @@ export default function Board2() {
   const [data,setData]=useState(null);
   const [status,setStatus]=useState(['전체','전체']);
   const [boardData, setboardData] = useState(data);
+
   const [category, setCategory] = useState('all');
   const [postType, setPostType] = useState('all')
   const [orderType, setOrderType] = useState('createdAt')
+
 
 
   useEffect(()=>{
@@ -56,7 +58,9 @@ export default function Board2() {
           {['전체','IT', '교육', '경제', '사회', '문화'].map((item, index) => (
             <li
               key={index}
+
               onClick={() => handleCategory(item)}
+
               className={`click_highlight ${category===item ? 'text-highligth' :''}`}
             >
               {item}
@@ -84,8 +88,9 @@ export default function Board2() {
      
       <main>
       <div className='w-screen flex flex-col items-center'>
-        { data && data.map((item) => <BoardItem key={item.id} data={item} />)}
         <hr className='  w-line border-1 border-main_color'/>
+        { data && data.map((item) => <BoardItem key={item.id} data={item} />)}
+        <hr className='  w-line border-2 border-main_color'/>
       </div>
 
       </main>

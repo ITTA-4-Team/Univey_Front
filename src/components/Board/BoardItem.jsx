@@ -60,18 +60,14 @@ export default function BoardItem({ data }) {
             )}
           </div>
         </div>
-        <div className="flex">
-          <Link
-            to="../main/participate"
-            className="h-full flex items-end pb-10"
-          >
-            <span>설문 참여하러 가기 &nbsp; </span>
-            <span className="mb-1">
-              <SlArrowRight />
-            </span>
-          </Link>
-          <img className="float-right" src={robot} alt="" />
-        </div>
+        <div className='flex'>
+          <Link to={`../main/participate/${data.id}`} className='h-full flex items-end pb-10'>
+            <span>설문 참여하러 가기  &nbsp; </span> 
+            <span className='mb-1'><SlArrowRight/></span> 
+            </Link>
+            <img className='float-right' src={robot} alt="" />
+          </div>
+
       </div>
     </div>
   );

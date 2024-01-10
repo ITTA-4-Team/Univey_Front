@@ -1,25 +1,31 @@
 import React from "react";
-import { QRCode } from "react-qrcode-logo";
+import React, { useRef } from 'react'
+import { QRCode } from 'react-qrcode-logo';
 import { IoSquareSharp } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { userState } from "../recoil/atoms/userState";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import customaxios from "../api/Axios";
+
+import { useParams,useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import customaxios from '../api/Axios';
+import html2canvas from 'html2canvas';
+import saveAs from 'file-saver'
 
 export default function QRcode() {
-  const { surveyId } = useParams();
-  const [qrCode, setqrCode] = useState({
-    size: "256",
-    quietZone: "100",
-    eyeColor: ["black", "black", "black"],
-    eyeRadius: 0,
-    logoWidth: "66",
-    logoOpacity: "1",
-    logoPadding: "10",
+  const qrRef = useRef();
+  const {surveyId} = useParams();
+  const [qrCode,setqrCode] = useState({
+    size:'256',
+    quietZone:'100',
+    eyeColor:['black','black','black'],
+    eyeRadius:0,
+    logoWidth: '66',
+    logoOpacity: '1',
+    logoPadding: '10'
+
   });
   const [style, setStyle] = useState("squares");
   const [logoStyle, setLogoStyle] = useState("squares");
@@ -45,25 +51,43 @@ export default function QRcode() {
     reader.readAsDataURL(e.target.files[0]);
   }
 
-  function handleCreate() {
-    const question = localStorage.getItem("userQuestions");
-    customaxios
-      .post(`/surveys/submit/${surveyId}`, question, {
-        headers: {
-          "ngrok-skip-browser-warning": "69420",
-          Authorization: `${userInfo.accesstoken}`,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        const point = response.data.data;
-        setUserInfo((prev) => ({ ...prev, point: point }));
-        usenavigate(`../main/create/complete/${surveyId}`);
-      })
-      .catch((error) => {
-        console.error("에러 발생:", error);
+  async function handleCreate(){
+    const question = localStorage.getItem('userQuestions')
+    // customaxios.post(
+    //   `/surveys/submit/${surveyId}`,
+    //   question,
+    //   { headers: { 
+    //     'ngrok-skip-browser-warning': '69420',
+    //     Authorization: `${userInfo.accesstoken}`,
+    //     'Content-Type': 'application/json'
+    //   } }
+    //   ) 
+    //   .then((response) => {
+    //     const point = response.data.data
+    //     setUserInfo((prev)=>({...prev, point:point})) 
+    //     usenavigate(`/main/create/complete/${surveyId}`)
+    //   })
+    //   .catch((error) => {
+    //     console.error('에러 발생:', error);
+    //   })
+
+      if (!qrRef.current) return;
+
+    try {
+      const div = qrRef.current;
+      const canvas = await html2canvas(div, { scale: 2 });
+      canvas.toBlob((blob) => {
+        if (blob !== null) {
+          saveAs(blob, "Qrcode.png");
+        }
       });
-    console.log(question);
+    } catch (error) {
+      console.error("Error converting div to image:", error);
+    }
+
+
+    console.log(question)
+
   }
 
   function handleChange(e) {
@@ -86,59 +110,29 @@ export default function QRcode() {
         <img src="https://url.kr/hkvjqz" className="ml-10 mt-1 mr-5 text-4xl" />
         <h1 className="">QR 생성</h1>
       </div>
-      <p className="ml-leftxl mt-5">
-        설문조사 링크와 함께 제공되는 QR코드입니다. QR 코드를 예쁘게 꾸며보세요.
-        완성된 QR 코드는 SNS, 포스터 등에 사용하면 더욱 효과적이랍니다!
-      </p>
 
-      <section className="flex flex-col items-center mt-12">
-        <hr className="border-xs border-line_color w-line -mt-10 mb-10" />
-
-        <div className="w-80 h-80 bg-gray-400 flex justify-center items-center mb-12 overflow-hidden border-1 border-black">
-          <QRCode
-            value={"https://picturesofpeoplescanningqrcodes.tumblr.com/"}
-            size={qrCode.size}
-            quietZone={qrCode.quietZone}
-            fgColor={qrCode.fgColor}
-            bgColor={qrCode.bgColor}
-            qrStyle={style}
-            logoImage={img}
-            logoPaddingStyle={logoStyle}
-            logoOpacity={qrCode.logoOpacity / 100}
-            logoWidth={qrCode.logoWidth}
-            logoHeight={qrCode.logoHeight}
-            logoPadding={qrCode.logoPadding}
-            eyeRadius={qrCode.eyeRadius}
-            eyeColor={qrCode.first_color}
-          />
-        </div>
-        <hr className="w-1/2 border-xs border-line_color mb-4" />
-        <p className="w-1/2 ml-20 mb-3 text-2xl text-main_color font-bold">
-          QR
-        </p>
-        <article className="w-screen flex flex-col items-center pl-20 mb-10 text-main_color">
-          <div className="flex w-1/2 mb-8">
-            <form action="" className=" w-1/2">
-              <label className="block mb-1 ">크기</label>
-              <input
-                name="size"
-                onChange={handleChange}
-                type="range"
-                min={10}
-                max={512}
-                className="w-80 accent-main_color"
-                value={qrCode.size}
-              />
-            </form>
-            <form action="" className=" w-1/2">
-              <label className="block mb-1  ">배경 크기</label>
-              <input
-                name="quietZone"
-                onChange={handleChange}
-                type="range"
-                min={10}
-                max={60}
-                className="w-80 accent-main_color"
+        <p className='ml-leftxl mt-5'>설문조사 링크와 함께 제공되는 QR코드입니다. QR 코드를 예쁘게 꾸며보세요. 완성된 QR 코드는 SNS, 포스터 등에 사용하면 더욱 효과적이랍니다!</p>
+        
+        <section className='flex flex-col items-center mt-12'>
+        <hr className='border-xs border-line_color w-line -mt-10 mb-10'/>
+          
+          <div className='w-80 h-80 bg-gray-400 flex justify-center items-center mb-12 overflow-hidden border-1 border-black'
+          ref={qrRef}>
+              <QRCode 
+                  value={"https://picturesofpeoplescanningqrcodes.tumblr.com/"}
+                  size={qrCode.size}
+                  quietZone={qrCode.quietZone}
+                  fgColor={qrCode.fgColor}
+                  bgColor={qrCode.bgColor}
+                  qrStyle={style}
+                  logoImage = {img} 
+                  logoPaddingStyle = {logoStyle}
+                  logoOpacity = {qrCode.logoOpacity/100}
+                  logoWidth = {qrCode.logoWidth}
+                  logoHeight = {qrCode.logoHeight}
+                  logoPadding = {qrCode.logoPadding}
+                  eyeRadius={qrCode.eyeRadius}
+                  eyeColor={qrCode.first_color}
               />
             </form>
           </div>

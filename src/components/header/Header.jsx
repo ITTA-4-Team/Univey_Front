@@ -12,7 +12,7 @@ export default function Header() {
   const key = process.env.REACT_APP_REST_API_KEY
   console.log('키값')
   console.log(key)
-  const url = `https://kauth.kakao.com/oauth/authorize?client_id=${key}&redirect_uri=https://www.univey.net/users/kakao/callback&response_type=code`
+  const url = `https://kauth.kakao.com/oauth/authorize?client_id=${key}&redirect_uri=http://www.univey.net/users/kakao/callback&response_type=code`
   console.log(userInfo)
 
   function handleLogout(){

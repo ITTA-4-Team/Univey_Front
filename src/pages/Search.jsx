@@ -9,12 +9,14 @@ export default function Search() {
     const [data,setData]=useState(null);
     const {value} = useParams();
     const [userInfo,setUserInfo] = useRecoilState(userState)
+    const pagenum =1;
+    console.log(`/survyes/search/${pagenum}?keyword=${value}`)
     useEffect(()=>{
       dataset()
     },[])
 
     async function dataset(){
-      await customaxios(`/surveys/search/?keyword=${value}`,
+      await customaxios(`/surveys/search/1?keyword=${value}`,
         { headers: { 
           'ngrok-skip-browser-warning': '69420',
           Authorization: `${userInfo.accesstoken}`,

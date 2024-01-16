@@ -108,8 +108,8 @@ export default function QRcode() {
           
           <div className='w-80 h-80 bg-gray-400 flex justify-center items-center mb-12 overflow-hidden border-1 border-black'
           ref={qrRef}>
-              <QRCode 
-                  value={`http://localhost:3000/main/participate/${surveyId}`}
+              <QRCode
+                  value={`https://www.univey.net/main/participate/${surveyId}`}
                   size={qrCode.size}
                   quietZone={qrCode.quietZone}
                   fgColor={qrCode.fgColor}

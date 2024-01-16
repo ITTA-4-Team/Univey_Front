@@ -6,6 +6,7 @@ import Logo from './header/Logo';
 
 export default function Footer() {
   return (
+    
     <div>
         <div className='flex w-full justify-evenly px-96 h-72 border-1 border-line_color pt-10'>
             <ul className='text-left pt-5 space-y-3'>

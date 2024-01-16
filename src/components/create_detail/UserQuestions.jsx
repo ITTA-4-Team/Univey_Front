@@ -22,7 +22,7 @@ const UserQuestions = ({
   description,
 }) => {
   const { surveyId } = useParams();
-  const [userInfo,setUserInfo] = useRecoilState(userState)
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   const [creatingQuestion, setCreatingQuestion] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
   const inputRef = useRef(null);
@@ -33,6 +33,10 @@ const UserQuestions = ({
   );
   const Info = JSON.parse(localStorage.getItem("Info"));
   const navigate = useNavigate();
+
+  const handleAddNewQuestion = () => {
+    setCreatingQuestion(true);
+  };
 
   const handleAddQuestion = (question) => {
     if (editingIndex !== null) {
@@ -140,7 +144,9 @@ const UserQuestions = ({
       !inputRef.current.contains(event.target) &&
       (creatingQuestion || editingIndex !== null)
     ) {
-      setCreatingQuestion(false);
+      if (creatingQuestion) {
+        setCreatingQuestion(false);
+      }
       setEditingIndex(null);
     }
   };
@@ -156,55 +162,52 @@ const UserQuestions = ({
 
     // 유효성이 모두 true일 경우에만 submit 처리
     if (isValidArray.every((isValid) => isValid)) {
-      const Info = localStorage.getItem('Info')
+      const Info = localStorage.getItem("Info");
 
-      if(userInfo.point<(userQuestions.length)*10){
-        alert('포인트가 부족합니다!')
-      }
-      else{
-      customaxios.post(
-        `/surveys/create`,
-        Info,
-        { headers: { 
-          'ngrok-skip-browser-warning': '69420',
-          Authorization: `${userInfo.accesstoken}`,
-          'Content-Type': 'application/json'
-        } }
-        ) 
-        .then((response) => {
-          console.log(userQuestions)
-          const id = response.data.data
-          if(userQuestions.length===0){
-            alert('질문을 입력해주세요')
-          }
-          else{
-          customaxios.post(
-            `/surveys/submit/${id}`,
-            {userQuestions},
-            { headers: { 
-              'ngrok-skip-browser-warning': '69420',
+      if (userInfo.point < userQuestions.length * 10) {
+        alert("포인트가 부족합니다!");
+      } else {
+        customaxios
+          .post(`/surveys/create`, Info, {
+            headers: {
+              "ngrok-skip-browser-warning": "69420",
               Authorization: `${userInfo.accesstoken}`,
-              'Content-Type': 'application/json'
-            } }
-            ) 
-            .then((response) => {
-              const point = response.data.data
-              setUserInfo((prev)=>({...prev, point:point}))
-              navigate(`../main/create/qr/${id}`);
-            })
-            .catch((error) => {
-              console.error('에러 발생:', error);
-            })
+              "Content-Type": "application/json",
+            },
+          })
+          .then((response) => {
+            console.log(userQuestions);
+            const id = response.data.data;
+            if (userQuestions.length === 0) {
+              alert("질문을 입력해주세요");
+            } else {
+              customaxios
+                .post(
+                  `/surveys/submit/${id}`,
+                  { userQuestions },
+                  {
+                    headers: {
+                      "ngrok-skip-browser-warning": "69420",
+                      Authorization: `${userInfo.accesstoken}`,
+                      "Content-Type": "application/json",
+                    },
+                  }
+                )
+                .then((response) => {
+                  const point = response.data.data;
+                  setUserInfo((prev) => ({ ...prev, point: point }));
+                  navigate(`../main/create/qr/${id}`);
+                })
+                .catch((error) => {
+                  console.error("에러 발생:", error);
+                });
             }
-
-        })
-        .catch((error) => {
-          console.error('에러 발생:', error);
-        })
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          });
       }
     }
-
-    
   };
 
   useEffect(() => {
@@ -228,7 +231,7 @@ const UserQuestions = ({
   console.log("isValid array in UserQuestions:", isValid);
 
   return (
-    <div className="flex-1 p-4 mt-20">
+    <div className="flex-1 p-4 mt-16">
       <div className="flex justify-center">
         <BiSolidQuoteAltLeft className="text-main_color" />
         <h2 className="text-2xl font-semibold text-main_color mb-4 px-2">
@@ -236,7 +239,15 @@ const UserQuestions = ({
         </h2>
         <BiSolidQuoteAltRight className="text-main_color" />
       </div>
-      <p className="text-center text-sm mb-7">{Info.description}</p>
+      <p className="text-center text-sm mb-1">{Info.description}</p>
+      <div className="text-right">
+        <button
+          className="text-main_color border border-main_color rounded-xl px-5 mb-3"
+          onClick={handleAddNewQuestion}
+        >
+          새 문항 생성
+        </button>
+      </div>
 
       {userQuestions.map((userQuestion, index) => (
         <div key={index}>
@@ -268,27 +279,39 @@ const UserQuestions = ({
           )}
         </div>
       ))}
+
       <div className="mt-4 flex" ref={inputRef}>
-        {creatingQuestion ? (
-          <CreateQuestion
-            onCancel={handleClick}
-            onAddQuestion={handleAddQuestion}
-            onCopyCreateQuestion={handleCopyCreateQuestion}
-          />
-        ) : (
-          <div className="flex items-center w-full">
-            <button className="text-main_color pr-2 font-bold p-2 mb-4">
-              <AddButtonIcon />
-            </button>
+        {!creatingQuestion &&
+          editingIndex === null &&
+          userQuestions.length === 0 && (
             <div
-              onClick={handleClick}
-              className="flex-grow p-2 mb-4 bg-question_card_bg rounded text-sub_text_color cursor-pointer"
+              onClick={() => setCreatingQuestion(true)}
+              className={`flex-grow p-2 mb-4 bg-question_card_bg rounded text-sub_text_color cursor-pointer`}
             >
               문항을 선택해 주세요.
             </div>
-          </div>
+          )}
+
+        {creatingQuestion && (
+          <CreateQuestion
+            onCancel={() => setCreatingQuestion(false)}
+            onAddQuestion={handleAddQuestion}
+            onCopyCreateQuestion={handleCopyCreateQuestion}
+          />
         )}
+
+        {!creatingQuestion &&
+          editingIndex === null &&
+          userQuestions.length > 0 && (
+            <div
+              onClick={() => setCreatingQuestion(true)}
+              className={`flex-grow p-2 mb-4 bg-question_card_bg rounded text-sub_text_color cursor-pointer hidden`}
+            >
+              문항을 선택해 주세요.
+            </div>
+          )}
       </div>
+
       <div className="text-right mt-10">
         <button
           className="px-9 py-1 rounded-xl border border-sub_text_color_4 text-sub_text_color_4"

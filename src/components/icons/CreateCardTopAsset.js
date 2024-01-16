@@ -3,8 +3,7 @@ import React from "react";
 const CreateCardTopAsset = () => {
   return (
     <svg
-      width="730"
-      height="22"
+      width="100%"
       viewBox="0 0 730 22"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

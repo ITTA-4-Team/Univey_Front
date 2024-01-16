@@ -14,15 +14,8 @@ export default function MyInfo({ name, nickName, email, phoneNumber }) {
   const [emailValue, setEmailValue] = useState(email);
   const [nickNameValue, setNickNameValue] = useState(nickName);
   const [phoneNumberValue, setPhoneNumberValue] = useState(phoneNumber);
-  const [category, setCategory] = useState("");
-  const [accessToken, setAccessToken] = useState("");
   const [isNickNameValid, setIsNickNameValid] = useState(true);
   const [profileImage, setProfileImage] = useState(null);
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setProfileImage(file);
-  };
 
   useEffect(() => {
     customaxios
@@ -35,11 +28,24 @@ export default function MyInfo({ name, nickName, email, phoneNumber }) {
         setEmailValue(data.email);
         setNickNameValue(data.nickName);
         setPhoneNumberValue(data.phoneNumber);
+        setProfileImage(
+          data.imageDto ? { name: data.imageDto.originName } : null
+        );
       })
       .catch((error) => {
         console.error("데이터를 불러오는 동안 에러 발생:", error);
       });
   }, []);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log("File selected:", file);
+      setProfileImage(file);
+    } else {
+      console.log("No file selected");
+    }
+  };
 
   const handleNickNameChange = (nickNameValue) => {
     setNickNameValue(nickNameValue);
@@ -58,16 +64,20 @@ export default function MyInfo({ name, nickName, email, phoneNumber }) {
   };
 
   const handleSubmit = () => {
-    const formData = {
-      name: nameValue,
-      email: emailValue,
-      nickName: nickNameValue,
-      phoneNumber: phoneNumberValue,
-      // 프로필 이미지가 선택되었다면 FormData에 추가
-      if(profileImage) {
-        formData.append("profileImage", profileImage, profileImage.name);
-      },
-    };
+    const formData = new FormData();
+    formData.append("name", nameValue);
+    formData.append("email", emailValue);
+    formData.append("nickName", nickNameValue);
+    formData.append("phoneNumber", phoneNumberValue);
+    // if (profileImage instanceof File) {
+    //   formData.append("profileImage", profileImage, profileImage.name);
+    // }
+    formData.append("profileImage", profileImage);
+
+    // 콘솔에 formData 확인 로그 추가
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
 
     customaxios
       .patch("/mypage/info", formData, {
@@ -75,14 +85,12 @@ export default function MyInfo({ name, nickName, email, phoneNumber }) {
         "Content-Type": "multipart/form-data", // 파일 업로드를 위한 콘텐츠 타입 설정
       })
       .then((response) => {
-        console.log("서버 응답:", response.data);
+        console.log("요청:", formData);
         alert("개인정보가 수정되었습니다.");
       })
       .catch((error) => {
         console.error("데이터 전송 중 에러 발생:", error);
       });
-
-    console.log("patch:", formData);
   };
 
   return (

@@ -5,6 +5,22 @@ import trend from '../assets/trend.svg'
 export default function TrendBoard({data}) {
   console.log(data)
 
+  function handlePart(){
+    switch(data.status){
+      case 'activeSurvey':
+        navigate(`/main/participate/${data.id}`)
+        break;
+      case 'completedSurvey':
+        navigate(`/main/result/${data.id}`)
+        break;
+      case 'participated':
+        navigate(`/main/result/${data.id}`)
+        break;
+      default: return
+  }
+  }
+
+
   return (
     <div className='w-1/3 border-1 border-main_color mx-5 rounded-2xl flex flex-col items-center'>
       <div className='h-1/2 pt-8'>
@@ -32,7 +48,7 @@ export default function TrendBoard({data}) {
           </p>
         </main>
         <div className='mb-6 font-semibold text-main_color w-full'>
-          <Link to={`/main/participate/${data.id}`} className='float-right mr-10'>트렌드 참여하기 &nbsp; &gt; </Link> 
+          <button onClick={()=>handlePart()} className='float-right mr-10'>트렌드 참여하기 &nbsp; &gt; </button> 
         </div>
     </div>
   );

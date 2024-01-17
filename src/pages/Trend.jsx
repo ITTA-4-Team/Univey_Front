@@ -18,7 +18,6 @@ export default function Trend() {
     .then((res)=>SetTrend(res))
   }
 
-  console.log()
   return (
     <div>
       <article className='mb-12 mt-24' >

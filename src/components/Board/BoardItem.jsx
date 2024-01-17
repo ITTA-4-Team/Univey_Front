@@ -65,20 +65,22 @@ export default function BoardItem({ data }) {
           <div className="font-semibold mb-6">{data.description}</div>
           <div>
             <p>{`카테고리 : ${handleCategory(data.category)}`}</p>
-            <p>{`문항 수 : 3분 예상`}</p>
+            <p>{`문항 수 : ${data.questionCount}문항`}</p>
             <p>
               대상:{" "}
               {data.age.minAge === 0
                 ? "전연령"
                 : `${data.age.minAge}대-${data.age.maxAge}대`}
             </p>
-            {data.targetRespondents ? (
+            {data.targetRespondents !== 0 ? (
               <p>
-                실제 응답자 수 / 목표 응답자 수: {data.currentRespondents}명 /
+                현재 응답자 수 / 목표 응답자 수: {data.currentRespondents}명 /
                 {data.targetRespondents}명
               </p>
             ) : (
-              ""
+              <p>
+                현재 응답자 수 : {data.currentRespondents}명
+              </p>
             )}
           </div>
         </div>

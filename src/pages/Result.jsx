@@ -13,10 +13,8 @@ export default function Result() {
   const [userInfo,setUserInfo] = useRecoilState(userState)
   const {surveyId} = useParams();
     const [data,setData]=useState();
-    const [graphInfo,setGraphInfo] = useRecoilState(graphState);
     useEffect(()=>{
         fetchData();
-        setGraphInfo('')
     },[])
 
     async function fetchData(){

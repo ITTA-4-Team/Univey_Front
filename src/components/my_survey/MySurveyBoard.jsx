@@ -110,10 +110,16 @@ export default function MySurveyBoard({ surveys, selectedType }) {
                           ? "전연령"
                           : `${data.age.minAge}대-${data.age.maxAge}대`}
                       </p>
-                      <p>
-                        실제 응답자 수/목표 응답자 수: {data.currentRespondents}
-                        명/{data.targetRespondents}명
-                      </p>
+                      {data.targetRespondents !== 0 ? (
+                        <p>
+                          현재 응답자 수 / 목표 응답자 수: {data.currentRespondents}명 /
+                          {data.targetRespondents}명
+                        </p>
+                        ) : (
+                        <p>
+                          현재 응답자 수 : {data.currentRespondents}명
+                        </p>
+                          )}
                     </div>
                   </div>
                 </div>

@@ -17,7 +17,6 @@ import saveAs from 'file-saver'
 export default function ResultChart({data}) {
     const chartRef = useRef();
     const questionNum = data.question_num
-    const [graph,SetGraph] = useState('bar');
     const [graphInfo,setGraphInfo] = useRecoilState(graphState)
     const answer = []
 
@@ -30,7 +29,7 @@ export default function ResultChart({data}) {
         answer.push({name:item, "응답 수": data.votes[index]})
       })
       if(!graphInfo[questionNum]){
-        setGraphInfo((prev) => ({...prev, [questionNum]: ['Line','first',answer],}));
+        setGraphInfo((prev) => ({...prev, [questionNum]: ['Bar','first',answer],}))
       }
     },[])
 
@@ -50,7 +49,7 @@ export default function ResultChart({data}) {
       }
     }
   return (
-    <div className='h-auto w-4/5 bg-white rounded-xl mb-16 flex flex-col items-center '>
+    <div className='h-auto w-4/5 bg-white rounded-xl mb-16 flex flex-col items-center ' ref={chartRef}>
         <div className='h-12 w-11/12 border-b-1 border-sub_line_color mt-6 mb-4 flex justify-between font-semibold'>
             <p>{`${data.question_num}.${data.question}`}</p>
             <div className='flex items-center px-4'>
@@ -60,7 +59,7 @@ export default function ResultChart({data}) {
         </div>
 
         <div className='flex'>
-            <div className='mt-5' ref={chartRef}>
+            <div className='mt-5' >
                {graphInfo[questionNum] && <ChartModel data={graphInfo[questionNum][2]} questionNumber={questionNum}/>}
             </div>
         </div>

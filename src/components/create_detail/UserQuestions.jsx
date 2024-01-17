@@ -158,6 +158,10 @@ const UserQuestions = ({
     if (isValidArray.every((isValid) => isValid)) {
       const Info = localStorage.getItem('Info')
 
+      if(userQuestions.length===0){
+        alert('질문을 입력해주세요')
+      }
+      else{
       if(userInfo.point<(userQuestions.length)*10){
         alert('포인트가 부족합니다!')
       }
@@ -174,10 +178,8 @@ const UserQuestions = ({
         .then((response) => {
           console.log(userQuestions)
           const id = response.data.data
-          if(userQuestions.length===0){
-            alert('질문을 입력해주세요')
-          }
-          else{
+
+
           customaxios.post(
             `/surveys/submit/${id}`,
             {userQuestions},
@@ -195,12 +197,13 @@ const UserQuestions = ({
             .catch((error) => {
               console.error('에러 발생:', error);
             })
-            }
+            
 
         })
         .catch((error) => {
           console.error('에러 발생:', error);
         })
+        }
       }
     }
 

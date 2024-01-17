@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import trend from '../assets/trend.svg'
 
 export default function TrendBoard({data}) {
+  const navigate = useNavigate();
   console.log(data)
 
   function handlePart(){

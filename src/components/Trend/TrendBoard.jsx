@@ -17,7 +17,16 @@ export default function TrendBoard({data}) {
             <p className='mb-1'>대상: {data.age.minAge === 0
                 ? "전연령"
                 : `${data.age.minAge}대-${data.age.maxAge}대`}</p>
-            <p className='mb-3'>실제 응답자 수 / 목표 응답자 수: {data.currentRespondents}명 /{data.targetRespondents}명</p>
+            {data.targetRespondents !== 0 ? (
+              <p>
+                현재 응답자 수 / 목표 응답자 수: {data.currentRespondents}명 /
+                {data.targetRespondents}명
+              </p>
+            ) : (
+              <p>
+                현재 응답자 수 : {data.currentRespondents}명
+              </p>
+            )}
           <p className='flex mb-2'>
             { data.hash && data.hash.map((item)=> <span className='mx-1'>#{item}</span>)}
           </p>

@@ -16,7 +16,7 @@ export default function ComposedChartModel({data}) {
           }}
         >
           <CartesianGrid stroke="#f5f5f5" />
-          <XAxis dataKey="name" scale="band" />
+          <XAxis dataKey="name" scale="band"  />
           <YAxis />
           <Tooltip />
           <Legend />

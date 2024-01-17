@@ -64,15 +64,26 @@ export default function MyInfo({ name, nickName, email, phoneNumber }) {
   };
 
   const handleSubmit = () => {
-    const formData = new FormData();
-    formData.append("name", nameValue);
-    formData.append("email", emailValue);
-    formData.append("nickName", nickNameValue);
-    formData.append("phoneNumber", phoneNumberValue);
-    // if (profileImage instanceof File) {
-    //   formData.append("profileImage", profileImage, profileImage.name);
-    // }
-    formData.append("profileImage", profileImage);
+    // const formData = new FormData();
+    // formData.append("name", nameValue);
+    // formData.append("email", emailValue);
+    // formData.append("nickName", nickNameValue);
+    // formData.append("phoneNumber", phoneNumberValue);
+    // // if (profileImage instanceof File) {
+    // //   formData.append("profileImage", profileImage, profileImage.name);
+    // // }
+    // formData.append("profileImage", profileImage);
+
+    const formData = {
+      name: nameValue,
+      email: emailValue,
+      nickName: nickNameValue,
+      phoneNumber: phoneNumberValue,
+      // 프로필 이미지가 선택되었다면 FormData에 추가
+      if(profileImage) {
+        formData.append("profileImage", profileImage, profileImage.name);
+      },
+    };
 
     // 콘솔에 formData 확인 로그 추가
     for (let pair of formData.entries()) {

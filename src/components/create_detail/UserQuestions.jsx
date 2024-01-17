@@ -24,6 +24,8 @@ const UserQuestions = ({
   const { surveyId } = useParams();
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [creatingQuestion, setCreatingQuestion] = useState(false);
+  const [showCreateQuestionMessage, setShowCreateQuestionMessage] =
+    useState(true);
   const [editingIndex, setEditingIndex] = useState(null);
   const inputRef = useRef(null);
   const [question, setQuestion] = useState("");
@@ -35,7 +37,7 @@ const UserQuestions = ({
   const navigate = useNavigate();
 
   const handleAddNewQuestion = () => {
-    setCreatingQuestion(true);
+    setShowCreateQuestionMessage(true);
   };
 
   const handleAddQuestion = (question) => {
@@ -61,8 +63,8 @@ const UserQuestions = ({
       setQuestion("");
       setAnswer([""]);
     }
-
     setCreatingQuestion(false);
+    setShowCreateQuestionMessage(false);
     setEditingIndex(null);
   };
 
@@ -105,6 +107,7 @@ const UserQuestions = ({
 
   const handleEditQuestion = (index) => {
     setCreatingQuestion(false);
+    setShowCreateQuestionMessage(false);
     setEditingIndex(index === editingIndex ? null : index);
     setIsValid((prevIsValid) => {
       const newIsValid = [...prevIsValid];
@@ -281,31 +284,23 @@ const UserQuestions = ({
       ))}
 
       <div className="mt-4 flex" ref={inputRef}>
-        {!creatingQuestion &&
-          editingIndex === null &&
-          userQuestions.length === 0 && (
-            <div
-              onClick={() => setCreatingQuestion(true)}
-              className={`flex-grow p-2 mb-4 bg-question_card_bg rounded text-sub_text_color cursor-pointer`}
-            >
-              문항을 선택해 주세요.
-            </div>
-          )}
-
         {creatingQuestion && (
           <CreateQuestion
-            onCancel={() => setCreatingQuestion(false)}
+            onCancel={() => {
+              setCreatingQuestion(false);
+              setShowCreateQuestionMessage(false);
+            }}
             onAddQuestion={handleAddQuestion}
             onCopyCreateQuestion={handleCopyCreateQuestion}
           />
         )}
 
-        {!creatingQuestion &&
-          editingIndex === null &&
-          userQuestions.length > 0 && (
+        {showCreateQuestionMessage &&
+          !creatingQuestion &&
+          editingIndex === null && (
             <div
               onClick={() => setCreatingQuestion(true)}
-              className={`flex-grow p-2 mb-4 bg-question_card_bg rounded text-sub_text_color cursor-pointer hidden`}
+              className={`flex-grow p-2 mb-4 bg-question_card_bg rounded text-sub_text_color cursor-pointer`}
             >
               문항을 선택해 주세요.
             </div>

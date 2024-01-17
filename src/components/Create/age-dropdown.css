@@ -1,0 +1,5 @@
+/* Style for the dropdowns */
+.flex-1 select {
+  overflow-y: auto;
+  size: 4;
+}

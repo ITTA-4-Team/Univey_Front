@@ -24,68 +24,65 @@ const Participate = () => {
   const { surveyId } = useParams();
   const navigate = useNavigate();
 
-//렌더링될 때 accesstoken?
-    
-useEffect(() => {
+  //렌더링될 때 accesstoken?
 
-  customaxios.get(`/surveys/participation/${surveyId}`,
-  {
-    headers: {
-      Authorization: `${userInfo.accesstoken}`,
-      'ngrok-skip-browser-warning': '69420',
-      'Accept': 'application/json'
-  }
-  })
-  .then((res)=>{
-        if(res.data.status===409){
-          alert('이미 참여한 설문조사입니다')
-          navigate(-1)
+  useEffect(() => {
+    customaxios
+      .get(`/surveys/participation/${surveyId}`, {
+        headers: {
+          Authorization: `${userInfo.accesstoken}`,
+          "ngrok-skip-browser-warning": "69420",
+          Accept: "application/json",
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 409) {
+          alert("이미 참여한 설문조사입니다");
+          navigate(-1);
+        } else {
+          console.log(res);
+
+          const surveyData = res.data.data.surveyData;
+          const flattenedUserQuestions = res.data.data.surveyData.userQuestions;
+
+          console.log(surveyData);
+          console.log(flattenedUserQuestions);
+
+          if (flattenedUserQuestions.length > 0) {
+            setTopic(surveyData.topic);
+            setDescription(surveyData.description);
+            // 초기에 모든 질문에 대한 경고를 숨기도록 빈 배열로 초기화
+            setShowWarning(Array(flattenedUserQuestions.length).fill(false));
+            setUserQuestions(flattenedUserQuestions);
+          }
         }
-        else{
-    console.log(res)
+      })
+      .catch((err) => {
+        if (err.response.data.status === 401) {
+        }
+      });
 
-    const surveyData=res.data.data.surveyData
-    const flattenedUserQuestions=res.data.data.surveyData.userQuestions
+    // axios.get(
+    //   '/data/ParticipatePost.json'
+    //   //{ headers: { Authorization: `Bearer ${accessToken}` } }
+    //   )
+    //   .then((response) => {
+    //     const surveyData = response.data.data.surveyData;
+    //     const flattenedUserQuestions = surveyData.userQuestions;
 
-    console.log(surveyData)
-    console.log(flattenedUserQuestions)
+    //     setUserQuestions(flattenedUserQuestions);
 
-    if (flattenedUserQuestions.length > 0) {
-      setTopic(surveyData.topic);
-      setDescription(surveyData.description);
-      // 초기에 모든 질문에 대한 경고를 숨기도록 빈 배열로 초기화
-      setShowWarning(Array(flattenedUserQuestions.length).fill(false));
-      setUserQuestions(flattenedUserQuestions)
-    }
-  }
-  })
-  .catch(err=>{
-    if(err.response.data.status===401){
-    }
-  })
-
-  // axios.get(
-  //   '/data/ParticipatePost.json'
-  //   //{ headers: { Authorization: `Bearer ${accessToken}` } }
-  //   )
-  //   .then((response) => {
-  //     const surveyData = response.data.data.surveyData;
-  //     const flattenedUserQuestions = surveyData.userQuestions;
-
-  //     setUserQuestions(flattenedUserQuestions);
-
-  //     if (flattenedUserQuestions.length > 0) {
-  //       setTopic(surveyData.topic);
-  //       setDescription(surveyData.description);
-  //       // 초기에 모든 질문에 대한 경고를 숨기도록 빈 배열로 초기화
-  //       setShowWarning(Array(flattenedUserQuestions.length).fill(false));
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.error('데이터를 불러오는 동안 에러 발생:', error);
-  //   });
-}, []);
-
+    //     if (flattenedUserQuestions.length > 0) {
+    //       setTopic(surveyData.topic);
+    //       setDescription(surveyData.description);
+    //       // 초기에 모든 질문에 대한 경고를 숨기도록 빈 배열로 초기화
+    //       setShowWarning(Array(flattenedUserQuestions.length).fill(false));
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error('데이터를 불러오는 동안 에러 발생:', error);
+    //   });
+  }, []);
 
   /* //모달 사용할 경우
   // 페이지 벗어남
@@ -122,28 +119,6 @@ useEffect(() => {
     };
   }, [submitting]);
 
-  /* // beforeunload 이벤트 핸들러 직접 등록
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      // if (showExitModal) {
-      //   // 모달이 이미 열려 있는 경우에는 사용자가 의도한 동작을 수행
-      //   setShowExitModal(false);
-      // } else {
-      // 모달을 열어 사용자에게 경고 메시지를 표시
-      // setShowExitModal(true);
-      event.preventDefault();
-      event.returnValue =
-        "설문 참여가 완료되지 않았습니다. 페이지를 떠나시겠습니까?";
-      // }
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [showExitModal]); */
-
   useEffect(() => {
     customaxios
       .get(`/surveys/participation/${surveyId}`, {
@@ -154,28 +129,28 @@ useEffect(() => {
         },
       })
       .then((res) => {
-        if(res.data.status!==409){
-        const surveyData = res.data.data.surveyData;
-        const flattenedUserQuestions = res.data.data.surveyData.userQuestions;
+        if (res.data.status !== 409) {
+          const surveyData = res.data.data.surveyData;
+          const flattenedUserQuestions = res.data.data.surveyData.userQuestions;
 
-        console.log(surveyData);
-        console.log(flattenedUserQuestions);
+          console.log(surveyData);
+          console.log(flattenedUserQuestions);
 
-        if (flattenedUserQuestions.length > 0) {
-          setTopic(surveyData.topic);
-          setDescription(surveyData.description);
-          // 초기에 모든 질문에 대한 경고를 숨기도록 빈 배열로 초기화
-          setShowWarning(Array(flattenedUserQuestions.length).fill(false));
-          setUserQuestions(flattenedUserQuestions);
-        }
+          if (flattenedUserQuestions.length > 0) {
+            setTopic(surveyData.topic);
+            setDescription(surveyData.description);
+            // 초기에 모든 질문에 대한 경고를 숨기도록 빈 배열로 초기화
+            setShowWarning(Array(flattenedUserQuestions.length).fill(false));
+            setUserQuestions(flattenedUserQuestions);
+          }
         }
       })
-      .catch(err=>{
-        if(err.response.data.status===401){
-          alert('로그인이 필요합니다!')
-          navigate('/')
+      .catch((err) => {
+        if (err.response.data.status === 401) {
+          alert("로그인이 필요합니다!");
+          navigate("/");
         }
-      })
+      });
 
     /*   axios
         .get(
@@ -266,13 +241,13 @@ useEffect(() => {
         const newPath = "./complete";
         navigate(newPath);
       })
-      .catch(err=>{
-        console.log('3번째')
-        if(err.response.data.status===401){
-          alert('로그인이 필요합니다!')
-          navigate('/')
+      .catch((err) => {
+        console.log("3번째");
+        if (err.response.data.status === 401) {
+          alert("로그인이 필요합니다!");
+          navigate("/");
         }
-      })
+      });
   };
 
   return (

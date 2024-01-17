@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CustomDatePicker from "./CustomDatePicker";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/atoms/userState";
-import customaxios from "../../api/Axios";
+import "./age-dropdown.css";
 
 const CreateSurvey = () => {
   const [userInfo, setUserInfo] = useRecoilState(userState);
@@ -249,76 +249,111 @@ const CreateSurvey = () => {
 
         <div className="flex flex-row space-x-4 mt-2 mb-6">
           <div className="flex-1">
-            <label className="flex flex-col space-y-2 mt-3 mb-6 text-xl font-semibold text-main_color">
+            <label className="flex flex-col space-y-2 mt-3 text-xl font-semibold text-main_color">
               <span className="flex items-center">
                 연령대
                 <span className="text-red-500 ml-1">*</span>
               </span>
             </label>
             <div className="flex space-x-10">
-              <select
-                className={`pb-2 w-full ${
-                  !validationStatus[3]
-                    ? "border-2 rounded border-red-400 pt-2 pl-1"
-                    : `border-b-2 mb-2 border-survey_border_color ${
-                        minAge ? "text-text_color" : "text-sub_text_color"
-                      }`
-                } focus:outline-none`}
-                value={minAge}
-                onChange={(e) => {
-                  setMinAge(e.target.value);
-                  const isValid = validateAge(e.target.value, maxAge);
-                  handleValidation(3, isValid);
-                }}
-              >
-                <option className="text-text_color" value="" disabled>
-                  연령대 선택
-                </option>
-                <option className="text-text_color" value={"0"}>
-                  전체
-                </option>
-                <option className="text-text_color" value={"10"}>
-                  10대
-                </option>
-                <option className="text-text_color" value={"20"}>
-                  20대
-                </option>
-                <option className="text-text_color" value={"30"}>
-                  30대
-                </option>
-              </select>
+              <div className="flex flex-col w-full">
+                <label htmlFor="minAge" className="text-main_color">
+                  최소
+                </label>
 
-              <select
-                className={`pb-2 w-full ${
-                  !validationStatus[4]
-                    ? "border-2 rounded border-red-400 pt-2 pl-1"
-                    : `border-b-2 mb-2 border-survey_border_color ${
-                        maxAge ? "text-text_color" : "text-sub_text_color"
-                      }`
-                } focus:outline-none`}
-                value={maxAge}
-                onChange={(e) => {
-                  setMaxAge(e.target.value);
-                  const isValid = validateAge(minAge, e.target.value);
-                  handleValidation(4, isValid);
-                }}
-              >
-                <option className="text-text_color" value="" disabled>
-                  연령대 선택
-                </option>
-                <option className="text-text_color" value={"0"}>
-                  전체
-                </option>
-                <option className="text-text_color" value={"10"}>
-                  10대
-                </option>
-                <option className="text-text_color" value={"20"}>
-                  20대
-                </option>
-                <option className="text-text_color" value={"30"}>
-                  30대
-                </option>
-              </select>
+                <select
+                  className={`pb-2 w-full ${
+                    !validationStatus[3]
+                      ? "border-2 rounded border-red-400 pt-2 pl-1"
+                      : `border-b-2 mb-2 border-survey_border_color ${
+                          minAge ? "text-text_color" : "text-sub_text_color"
+                        }`
+                  } focus:outline-none size-4`}
+                  value={minAge}
+                  onChange={(e) => {
+                    setMinAge(e.target.value);
+                    const isValid = validateAge(e.target.value, maxAge);
+                    handleValidation(3, isValid);
+                  }}
+                >
+                  <option className="text-text_color" value="" disabled>
+                    연령대 선택
+                  </option>
+                  <option className="text-text_color" value={"0"}>
+                    전체
+                  </option>
+                  <option className="text-text_color" value={"10"}>
+                    10대
+                  </option>
+                  <option className="text-text_color" value={"20"}>
+                    20대
+                  </option>
+                  <option className="text-text_color" value={"30"}>
+                    30대
+                  </option>
+                  <option className="text-text_color" value={"40"}>
+                    40대
+                  </option>
+                  <option className="text-text_color" value={"50"}>
+                    50대
+                  </option>
+                  <option className="text-text_color" value={"60"}>
+                    60대
+                  </option>
+                  <option className="text-text_color" value={"70"}>
+                    70대
+                  </option>
+                </select>
+              </div>
+
+              <div className="flex flex-col w-full ">
+                <label htmlFor="maxAge" className="text-main_color">
+                  최대
+                </label>
+                <select
+                  className={`pb-2 w-full ${
+                    !validationStatus[4]
+                      ? "border-2 rounded border-red-400 pt-2 pl-1"
+                      : `border-b-2 mb-2 border-survey_border_color ${
+                          maxAge ? "text-text_color" : "text-sub_text_color"
+                        }`
+                  } focus:outline-none`}
+                  value={maxAge}
+                  onChange={(e) => {
+                    setMaxAge(e.target.value);
+                    const isValid = validateAge(minAge, e.target.value);
+                    handleValidation(4, isValid);
+                  }}
+                >
+                  <option className="text-text_color" value="" disabled>
+                    연령대 선택
+                  </option>
+                  <option className="text-text_color" value={"0"}>
+                    전체
+                  </option>
+                  <option className="text-text_color" value={"10"}>
+                    10대
+                  </option>
+                  <option className="text-text_color" value={"20"}>
+                    20대
+                  </option>
+                  <option className="text-text_color" value={"30"}>
+                    30대
+                  </option>
+                  <option className="text-text_color" value={"40"}>
+                    40대
+                  </option>
+                  <option className="text-text_color" value={"50"}>
+                    50대
+                  </option>
+                  <option className="text-text_color" value={"60"}>
+                    60대
+                  </option>
+                  <option className="text-text_color" value={"70"}>
+                    70대
+                  </option>
+                </select>
+              </div>
             </div>
             {(!validationStatus[3] || !validationStatus[4]) && isAgeValid && (
               <span className="text-red-400 text-sm">

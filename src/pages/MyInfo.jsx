@@ -65,7 +65,7 @@ export default function MyInfo({ name, nickName, email, phoneNumber }) {
       phoneNumber: phoneNumberValue,
       // 프로필 이미지가 선택되었다면 FormData에 추가
       if(profileImage) {
-        formData.append("profileImage", profileImage, profileImage.name);
+        formData.append("file", profileImage, profileImage.name);
       },
     };
 
@@ -134,6 +134,7 @@ export default function MyInfo({ name, nickName, email, phoneNumber }) {
               type="text"
               value={nameValue}
               onChange={(e) => setNameValue(e.target.value)}
+              disabled
             />
           </div>
           <div className="flex-1" style={{ marginLeft: "50px" }}>
@@ -166,6 +167,7 @@ export default function MyInfo({ name, nickName, email, phoneNumber }) {
               type="이메일"
               value={emailValue}
               onChange={(e) => setEmailValue(e.target.value)}
+              disabled
             />
           </div>
           <div className="flex-1" style={{ marginLeft: "50px" }}>

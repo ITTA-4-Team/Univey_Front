@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import AddButtonIcon from "../icons/AddButtonIcon";
+import React, { useState, useEffect, useRef } from "react";
 import CopyButtonIcon from "../icons/CopyButtonIcon";
 import DeleteButtonIcon from "../icons/DeleteButtonIcon";
 import MultipleChoiceIcon from "../icons/MultipleChoiceIcon";
@@ -15,6 +14,17 @@ const CreateQuestion = ({ onCancel, onAddQuestion, onCopyCreateQuestion }) => {
   const [showComponent, setShowComponent] = useState(true);
   const [answers, setAnswers] = useState([""]); // 객관식일 때 각 응답 옵션
   const [isRequired, setIsRequired] = useState(false); // 필수질문 여부
+  const createQuestionRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (
+      createQuestionRef.current &&
+      !createQuestionRef.current.contains(event.target)
+    ) {
+      // CreateQuestion 외부를 클릭했을 때, 질문 추가
+      handleAddQuestion();
+    }
+  };
 
   // 질문 추가
   const handleAddQuestion = () => {
@@ -74,18 +84,22 @@ const CreateQuestion = ({ onCancel, onAddQuestion, onCopyCreateQuestion }) => {
     setAnswers(updatedAnswers);
   };
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [createQuestionRef, handleAddQuestion]);
+
   return showComponent ? (
     <div className="flex w-full">
-      {/* "+" 버튼 클릭 시 질문 추가 함수 호출 */}
-      <button
-        onClick={handleAddQuestion}
-        className=" text-main_color pr-2 font-bold"
-      >
-        <AddButtonIcon />
-      </button>
-      <div className="flex flex-col items-start">
+      <div className="flex flex-col items-start w-full">
         <CreateCardTopAsset />
-        <div className="mb-2 w-full rounded p-5 bg-question_card_bg">
+        <div
+          ref={createQuestionRef}
+          className="mb-2 w-full rounded p-5 bg-question_card_bg"
+        >
           <div className="flex items-center space-x-4">
             <input
               className="flex-grow p-1 outline-none border-b border-question_card_grey bg-transparent text-l font-semibold text-text_color"

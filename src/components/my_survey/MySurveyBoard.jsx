@@ -14,8 +14,8 @@ export default function MySurveyBoard({ surveys, selectedType }) {
   const [selectedSurveyId, setSelectedSurveyId] = useState(null);
   const [showWarning, setShowWarning] = useState(false);
 
-  console.log(selectedType)
-  console.log(survey)
+  console.log(selectedType);
+  console.log(survey);
 
   const openModal = (surveyId) => {
     setSelectedSurveyId(surveyId);
@@ -25,10 +25,10 @@ export default function MySurveyBoard({ surveys, selectedType }) {
   const closeModal = () => {
     setSelectedSurveyId(null);
     setShowModal(false);
-    setShowWarning(false); // 모달이 닫힐 때 경고 메시지도 초기화
   };
 
   const handleSurveyClose = () => {
+    setShowWarning(false);
     customaxios
       .get(`/mypage/surveys/${selectedSurveyId}/close`, {
         headers: {
@@ -59,7 +59,7 @@ export default function MySurveyBoard({ surveys, selectedType }) {
                   : `/main/result/${data.surveyId}`
               }
               onClick={() => {
-                if (data.status === "IN_PROGRESS") {
+                if (data.status === "IN_PROGRESS" && !setShowModal) {
                   setShowWarning(true);
                 }
               }}

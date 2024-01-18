@@ -20,7 +20,8 @@ export default function ResultChart({data}) {
     const [graphInfo,setGraphInfo] = useRecoilState(graphState)
     const answer = []
 
-    console.log(data)
+    console.log(data.answer[0])
+    // console.log(graphInfo[questionNum][2][0].name)
     
     useEffect(()=>{
       data.answer.forEach((item,index)=>{
@@ -28,7 +29,7 @@ export default function ResultChart({data}) {
         data.votes &&
         answer.push({name:item, "응답 수": data.votes[index]})
       })
-      if(!graphInfo[questionNum]){
+      if(!graphInfo[questionNum] || data.answer[0]!==graphInfo[questionNum][2][0].name){
         setGraphInfo((prev) => ({...prev, [questionNum]: ['Bar','first',answer],}))
       }
     },[])

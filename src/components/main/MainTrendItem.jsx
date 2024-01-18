@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import robot from '../assets/robot.svg'
 
 export default function MainTrendItem({data}) {
+  const navigate = useNavigate();
   console.log(data);
 
   function handleCategory(category){
@@ -21,21 +23,34 @@ export default function MainTrendItem({data}) {
       default: return(category)
     }
   }
-
+  function handlePart(data){
+    switch(data.status){
+      case 'activeSurvey':
+        navigate(`/main/participate/${data.id}`)
+        break;
+      case 'completedSurvey':
+        navigate(`/main/result/${data.id}`)
+        break;
+      case 'participated':
+        navigate(`/main/result/${data.id}`)
+        break;
+      default: return
+  }
+  }
   return (
 
-    <div className='overflow-hidden border-t-2 border-main_color w-line h-full px-8'>
+    <button onClick={()=>{handlePart(data)}} className='overflow-hidden border-t-2 border-main_color w-line h-full px-8'>
       <div className='flex'>
         <img src={robot} alt="" />
-        <div className='flex flex-col justify-center h-full mt-9 ml-10'>
+        <div className='w-full flex flex-col items-start  h-full mt-9 ml-10'>
           <div className='text-3xl font-bold mb-4'>{data.topic}</div>
           <div className='font-semibold mb-6'>{data.description}</div>
-          <div>
+          <div className='flex flex-col items-start'>
             <p>{`카테고리 : ${handleCategory(data.category)}`}</p>
             <p>{`문항 수 : 3분 예상`}</p>
             <p>
               대상:{" "}
-              {data.age.minAge === "0"
+              {data.age.minAge === 0
                 ? "전연령"
                 : `${data.age.minAge}대-${data.age.maxAge}대`}
             </p>
@@ -50,7 +65,7 @@ export default function MainTrendItem({data}) {
           </div>
         </div>
       </div>
-    </div>
+    </button>
     
   )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Carousel from '../components/main/Carousel';
 import {FiCheckSquare} from 'react-icons/fi'
 import GoCreate from '../components/main/GoCreate';
@@ -13,6 +13,7 @@ import { userState } from "../recoil/atoms/userState";
 import customaxios from '../api/Axios';
 
 export default function Main() {
+
   const [main_data, SetMain_data] = useState();
   const [userInfo, setUserInfo] = useRecoilState(userState)
   // const {data, isLoading } = useQuery({ queryKey: ['Trend'], queryFn: dataset })
@@ -28,6 +29,7 @@ export default function Main() {
     .then((res)=>SetMain_data(res))
 
   }
+
 
 
 
@@ -68,9 +70,10 @@ export default function Main() {
         <div className=' w-full flex flex-col items-center h-full'>
             {main_data &&
             main_data.map((item,index)=>{
+              console.log(item)
               return(
               <div>
-              <Link to={`/main/participate/${item.id}`} className='w-screen flex flex-col items-center'><MainTrendItem key={index} data={item}/></Link>
+              <div className='w-screen flex flex-col items-center'><MainTrendItem key={index} data={item}/></div>
             </div>
             )
             })

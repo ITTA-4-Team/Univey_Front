@@ -67,8 +67,8 @@ export default function PaymentRequest() {
           payType: "CARD",
           amount: price,
           orderName,
-          successUrl: "http://localhost:3000/api/v1/payments/toss/success",
-          failUrl: "http://localhost:3000/api/v1/payments/toss/fail",
+          successUrl: "https://www.univey.net/api/v1/payments/toss/success",
+          failUrl: "https://www.univey.net/api/v1/payments/toss/fail",
         },
         {
           headers: { Authorization: `${userInfo.accesstoken}` },

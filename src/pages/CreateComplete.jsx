@@ -17,7 +17,7 @@ export default function CreateComplete() {
   };
 
   const handleReturnCopyClick = () => {
-    navigator.clipboard.writeText(`http://localhost:3000/main/participate/${surveyId}`);
+    navigator.clipboard.writeText(`https://www.univey.net/main/participate/${surveyId}`);
     alert('링크가 복사되었습니다')
   };
 

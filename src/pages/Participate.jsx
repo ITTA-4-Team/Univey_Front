@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import { useBeforeunload } from "react-beforeunload";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ParticipateCard from "../components/participate/ParticipateCard";
 import ExitModal from "../components/participate/ExitModal";
 import CheckIcon from "../components/icons/CheckIcon";
@@ -23,10 +23,12 @@ const Participate = () => {
 
   const { surveyId } = useParams();
   const navigate = useNavigate();
-
+  const location = useLocation();
   //렌더링될 때 accesstoken?
 
   useEffect(() => {
+    console.log('-----------------------------------')
+    console.log(location.state)
     customaxios
       .get(`/surveys/participation/${surveyId}`, {
         headers: {
@@ -37,7 +39,8 @@ const Participate = () => {
       })
       .then((res) => {
         if (res.data.status === 409) {
-          alert("이미 참여한 설문조사입니다");
+          console.log(res.data)
+          alert(`${location.state[0]}년 ${location.state[1]}월 ${location.state[2]}일에 마감 예정인 설문입니다`);
           navigate(-1);
         } else {
           console.log(res);

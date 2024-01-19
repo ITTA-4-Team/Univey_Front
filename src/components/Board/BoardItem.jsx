@@ -6,6 +6,8 @@ import robot from "../assets/robot.svg";
 export default function BoardItem({ data }) {
   const navigate = useNavigate();
 
+  console.log(data.dead_line)
+
   function handleCategory(category){
     switch(category){
       case('economy'):
@@ -42,7 +44,7 @@ export default function BoardItem({ data }) {
   function handlePart(){
     switch(data.status){
       case 'activeSurvey':
-        navigate(`/main/participate/${data.id}`)
+        navigate(`/main/participate/${data.id}`, { state: data.dead_line })
         break;
       case 'completedSurvey':
         navigate(`/main/result/${data.id}`)

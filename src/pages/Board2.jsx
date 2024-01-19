@@ -66,10 +66,6 @@ export default function Board2() {
          
       }
   },[inView])
-  
-  function infinite(){
-
-  }
 
 
 

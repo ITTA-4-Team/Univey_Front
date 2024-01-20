@@ -27,9 +27,11 @@ export default function MainTrendItem({data}) {
     switch(data.status){
       case 'activeSurvey':
         if(data.participated){
+          console.log(data.participated)
           alert(`${data.dead_line[0]}년 ${data.dead_line[1]}월 ${data.dead_line[2]}일에 마감 예정인 설문입니다.`)
         }
         else{
+          console.log(data.participated)
           navigate(`/main/participate/${data.id}`)
         }
         break;

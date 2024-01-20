@@ -24,10 +24,18 @@ export default function Main() {
   },[])
 
   async function dataset(){
-    await customaxios('/trends')
+    await customaxios('/trends',
+    {
+      headers: {
+        Authorization: `${userInfo.accesstoken}`,
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': '69420',
+      'Accept': 'application/json'
+  }
+    }
+    )
     .then((res)=>res.data.data)
     .then((res)=>SetMain_data(res))
-
   }
 
   console.log('--------------------------------')

@@ -13,7 +13,14 @@ export default function Trend() {
   },[])
 
   async function dataset(){
-    await customaxios('/trends')
+    await customaxios('/trends',{
+      headers: {
+        Authorization: `${userInfo.accesstoken}`,
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': '69420',
+      'Accept': 'application/json'
+  }
+    })
     .then(res=>res.data.data)
     .then((res)=>SetTrend(res))
   }

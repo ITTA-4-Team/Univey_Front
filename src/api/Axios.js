@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const customaxios = axios.create({
-  baseURL: "https://www.univey.site",
+  baseURL: "https://univey.site",
   headers: {
     "Content-Type": "application/json",
     "ngrok-skip-browser-warning": "69420",

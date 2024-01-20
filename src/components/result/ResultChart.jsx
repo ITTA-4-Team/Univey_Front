@@ -42,7 +42,7 @@ export default function ResultChart({data}) {
         const canvas = await html2canvas(div, { scale: 2 });
         canvas.toBlob((blob) => {
           if (blob !== null) {
-            saveAs(blob, "Qrcode.png");
+            saveAs(blob, "Result.png");
           }
         });
       } catch (error) {

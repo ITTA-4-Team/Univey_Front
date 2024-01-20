@@ -5,8 +5,12 @@ import TrendBoard from '../components/Trend/TrendBoard';
 import {useQuery} from '@tanstack/react-query'
 import axios from 'axios';
 import customaxios from '../api/Axios';
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/atoms/userState";
+
 export default function Trend() {
   const [trend, SetTrend] = useState();
+  const [userInfo,setUserInfo] = useRecoilState(userState)
   // const {data, isLoading } = useQuery({ queryKey: ['Trend'], queryFn: dataset })
   useEffect(()=>{
     dataset();

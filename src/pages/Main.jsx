@@ -30,7 +30,8 @@ export default function Main() {
 
   }
 
-
+  console.log('--------------------------------')
+  console.log(main_data)
 
 
   return (

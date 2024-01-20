@@ -9,7 +9,12 @@ export default function TrendBoard({data}) {
   function handlePart(){
     switch(data.status){
       case 'activeSurvey':
-        navigate(`/main/participate/${data.id}`)
+        if(data.participated){
+          alert(`${data.dead_line[0]}년 ${data.dead_line[1]}월 ${data.dead_line[2]}일에 마감 예정인 설문입니다.`)
+        }
+        else{
+          navigate(`/main/participate/${data.id}`)
+        }
         break;
       case 'completedSurvey':
         navigate(`/main/result/${data.id}`)

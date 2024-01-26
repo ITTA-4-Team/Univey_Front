@@ -6,8 +6,12 @@ import 'slick-carousel/slick/slick-theme.css';
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import {useQuery} from '@tanstack/react-query'
 import trend_carousel from '../assets/trend_carousel.svg'
+import trend_carousel2 from '../assets/breakfast.svg'
+import trend_carousel3 from '../assets/love.svg'
+import { useNavigate } from 'react-router-dom';
 
 export default function TrendCarousel() {
+    const navigate = useNavigate();
     const slickRef = useRef();
 
     const {data, isLoading } = useQuery({ queryKey: ['TrendCarousels'], queryFn: CarouselData })
@@ -34,17 +38,11 @@ export default function TrendCarousel() {
         <div className=''>
             <article className=' h-carousel relative w-screen '>
                 <Slider {...settings} ref={slickRef} >
-                    <div className='relative h-trend_carousel  '>
-                        <img src={trend_carousel} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full rounded-2xl shadow-2xl'/>
+                    <div onClick={()=>{navigate('/main/result/30')}} className='relative h-trend_carousel  '>
+                        <img src={trend_carousel2} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full '/>
                     </div>
-                    <div className='relative h-trend_carousel  '>
-                        <img src={trend_carousel} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full rounded-2xl shadow-2xl'/>
-                    </div>
-                    <div className='relative h-trend_carousel  '>
-                        <img src={trend_carousel} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full rounded-2xl shadow-2xl'/>
-                    </div>
-                    <div className='relative h-trend_carousel  '>
-                        <img src={trend_carousel} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full rounded-2xl shadow-2xl'/>
+                    <div onClick={()=>{navigate('/main/participate/41')}} className='relative h-trend_carousel  '>
+                        <img src={trend_carousel3} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full '/>
                     </div>
                 </Slider>
                 <div>

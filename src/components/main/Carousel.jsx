@@ -5,7 +5,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {useQuery} from '@tanstack/react-query'
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
-import carouselImg from '../assets/carousel.svg'
+import mainPannel1 from '../assets/carousel.svg'
+import mainPannel2 from '../assets/mainPannel2.svg'
+import mainPannel3 from '../assets/mainPannel3.svg'
 
 export default function Carousel() {
     const {data, isLoading } = useQuery({ queryKey: ['Carousel'], queryFn: CarouselData })
@@ -38,19 +40,13 @@ export default function Carousel() {
             <article className=' h-carousel relative'>
                 <Slider {...settings} ref={slickRef} >
                     <div className='relative h-carousel'>
-                        <img src={carouselImg} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full'/>
+                        <img src={mainPannel1} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full'/>
                     </div>
                     <div className='relative h-carousel'>
-                        <img src={carouselImg} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full'/>
+                        <img src={mainPannel2} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full'/>
                     </div>
                     <div className='relative h-carousel'>
-                        <img src={carouselImg} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full'/>
-                    </div>
-                    <div className='relative h-carousel'>
-                        <img src={carouselImg} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full'/>
-                    </div>
-                    <div className='relative h-carousel'>
-                        <img src={carouselImg} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full'/>
+                        <img src={mainPannel3} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full'/>
                     </div>
                 </Slider>
                 <div>

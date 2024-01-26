@@ -38,10 +38,10 @@ export default function TrendCarousel() {
         <div className=''>
             <article className=' h-carousel relative w-screen '>
                 <Slider {...settings} ref={slickRef} >
-                    <div onClick={()=>{navigate('/main/result/30')}} className='relative h-trend_carousel  '>
+                    <div onClick={()=>{navigate('/main/result/30')}} className='relative h-trend_carousel hover:cursor-pointer '>
                         <img src={trend_carousel2} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full '/>
                     </div>
-                    <div onClick={()=>{navigate('/main/participate/41')}} className='relative h-trend_carousel  '>
+                    <div onClick={()=>{navigate('/main/participate/41')}} className='relative h-trend_carousel hover:cursor-pointer '>
                         <img src={trend_carousel3} alt="carousel" className='absolute right-1/2 translate-x-1/2 object-cover h-full '/>
                     </div>
                 </Slider>

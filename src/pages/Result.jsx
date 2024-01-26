@@ -7,9 +7,10 @@ import ResultChart from '../components/result/ResultChart';
 import { useRecoilState } from "recoil";
 import { graphState,userState } from "../recoil/atoms/userState";
 import customaxios from '../api/Axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function Result() {
+  const naviagte = useNavigate();
   const [userInfo,setUserInfo] = useRecoilState(userState)
   const {surveyId} = useParams();
     const [data,setData]=useState();
@@ -27,6 +28,8 @@ export default function Result() {
         .then((res)=>setData(res))
         .catch((err) => {
           if (err.response.data.status === 401) {
+            alert('로그인이 필요합니다.')
+            naviagte(-1)
           }
         });
       }

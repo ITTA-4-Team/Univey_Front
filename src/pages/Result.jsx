@@ -25,7 +25,12 @@ export default function Result() {
         })
         .then((res)=>res.data.data.resultData)
         .then((res)=>setData(res))
+        .catch((err) => {
+          if (err.response.data.status === 401) {
+          }
+        });
       }
+      
     
     {data && data.question.forEach((item)=>{
       if(item.question_type==='MULTIPLE_CHOICE'){

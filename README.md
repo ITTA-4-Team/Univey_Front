@@ -1,6 +1,7 @@
-# Univey_Front
-
-## About Univey
+# Univey (University + Survey)
+> TEAM 불사조 / 2023/09 ~ 2024/01
+> <br>
+> 설문 생성, 결과 정리, 트렌드 보기까지 - **대학생 설문조사 all-in-one 플랫폼**
 <img src="https://github.com/user-attachments/assets/7cf370de-3e7e-493e-86b3-891e62de540c" width="400" height="600"/>
 <br>
 <img src="https://github.com/user-attachments/assets/8559e25e-f48f-48c2-aded-953c8c11dc48" width="400" height="600"/>
